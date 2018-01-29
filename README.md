@@ -2,11 +2,11 @@
 Standard API for creating memoized state selectors. Very similar to [reselect](https://github.com/reactjs/reselect). If reselect is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
 
 ## Differences from reselect
-Reselect is really awesome! Comfy redux-selectors was created to smooth over some common edge cases that you run into with reselect. Notably, `createSelectorWithArgs` is the key feature missing from reselect. Comfy redux-selectors also offers a thin wrapper around lodash.get for quickly creating selectors from a selector string.
+Reselect is really awesome! Comfy redux-selectors was created to smooth over some common edge cases that you run into with reselect. Notably, [`createSelectorWithArgs`](./docs/createSelectorWithArgs.md) is not available with reselect directly. Comfy redux-selectors also offers a thin wrapper around [lodash.get](https://www.npmjs.com/package/lodash.get) for quickly creating selectors from a selector string.
 
 ### Important notes:
 
-- Comfy redux-selectors uses `WeakMap` for the memoizer. A future version may allow you to specify your own memoizer. If you are targeting a browser that does not support WeakMap, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
+- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer. If you are targeting a browser that does not support WeakMap, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
 - Comfy redux-selectors allows you to create a selector from a simple selector string. Under the hood it uses lodash.get, which must be added as a peer dependency. A future version will (hopefully) make it easy to use either lodash.get, lodash/get, or your own get.
 
 ## Installation

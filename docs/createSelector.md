@@ -3,73 +3,108 @@
 
 ## Simple selector
 
+If you pass only a single argument, it is passed into `createStateSelector` to enable creation of string selectors. Passing a function simply returns that function unaltered.
+
 ```js
 import { createSelector } '@comfy/redux-selectors'
-const state = {
-  one: 1,
-  two: 2
-}
 
 // a string selector, not memoized
-const selectOne = createSelector('one')
+export const selectOne = createSelector('section.one')
 
 // a function selector, not memoized
-const selectTwo = createSelector(state => state.two)
+export const selectTwo = createSelector(state => state.section.two)
+
+// ---
+
+const state = {
+  section: {
+    one: 1,
+    two: 2
+  }
+}
+
+selectOne(state) // --> 1
+selectTwo(state) // --> 2
 ```
 
 ## Chained selector
+
 ```js
-const state = {
-  one: 1,
-  two: 2
-}
+import { createSelector } '@comfy/redux-selectors'
+
+import { selectOne, selectTwo } from './selectors'
 
 // memoized, last selector received a spread of all previous selector results
-const selectTotal = createSelector(
+export const selectTotal = createSelector(
   selectOne,
   selectTwo,
   (one, two) => one + two
 )
+
+// ---
+
+const state = {
+  section: {
+    one: 1,
+    two: 2
+  }
+}
+
+selectTotal(state) // --> 3
 ```
 
 ## With Combine selectors
 
 ```js
-const state = {
-  one: 1,
-  two: 2
-}
+import { createSelector, combineSelectors } '@comfy/redux-selectors'
+
+import { selectOne, selectTwo } from './selectors'
 
 // memoized, combines selectors into an object
-const selectTotal = createSelector(
+export const selectTotal = createSelector(
   combineSelectors({
     one: selectOne,
     two: selectTwo
   }),
   ({ one, two }) => one + two
 )
+
+// ---
+
+const state = {
+  section: {
+    one: 1,
+    two: 2
+  }
+}
+
+selectTotal(state) // --> 3
 ```
 
 ## With Compose selectors
 
 ```js
+import { createSelector, composeSelectors } '@comfy/redux-selectors'
+
+export const selectRoot = createSelector('section')
+export const selectOne = composeSelectors(selectRoot, 'one')
+export const selectTwo = composeSelectors(selectRoot, 'two')
+export const selectTotal = createSelector(
+  selectOne,
+  selectTwo,
+  (one, two) => one + two
+)
+
+// ---
+
 const state = {
-  first: {
-    second: {
-      one: 1,
-      two: 2
-    }
+  section: {
+    one: 1,
+    two: 2
   }
 }
 
-// memoized, feeds state in successive selectors
-const selectTotal = createSelector(
-  composeSelectors(
-    'first', // <-- creates a simple selector
-    'second',
-    // the deep state is fed into the combined selector
-    combineSelectors({ one: selectOne, two: selectTwo })
-  }),
-  ({ one, two }) => one + two
-)
+selectOne(state) // --> 1
+selectTwo(state) // --> 2
+selectTotal(state) // --> 3
 ```
