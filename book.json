@@ -1,0 +1,25 @@
+{
+  "gitbook": "3.2.2",
+  "title": "Comfy Redux Selectors",
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "algolia"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/heygrady/redux-selectors/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/heygrady/redux-selectors/"
+    },
+    "algolia": {
+      "index": "comfy-redux-selectors-docs",
+      "applicationID": "changeme",
+      "publicKey": "changeme",
+      "freeAccount": "false"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "build/gitbook.css"
+      }
+    }
+  }
+}
