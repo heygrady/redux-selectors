@@ -12,7 +12,7 @@ const config = {
 
 if (env === 'es' || env === 'cjs') {
   config.output = { format: env }
-  config.external = ['symbol-observable', 'lodash.get']
+  config.external = ['symbol-observable', 'lodash.get', 'redux']
   config.plugins.push(
     babel({
       plugins: ['external-helpers'],
@@ -23,9 +23,10 @@ if (env === 'es' || env === 'cjs') {
 if (env === 'development' || env === 'production') {
   config.output = { format: 'umd' }
   config.name = 'ComfyReduxSelectors'
-  config.external = ['lodash.get']
+  config.external = ['lodash.get', 'redux']
   config.globals = {
-    'lodash.get': '_.get'
+    'lodash.get': '_.get',
+    'redux': 'Redux'
   }
   config.plugins.push(
     nodeResolve({

@@ -6,8 +6,9 @@ Reselect is really awesome! Comfy redux-selectors was created to smooth over som
 
 ### Important notes:
 
-- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer. If you are targeting a browser that does not support WeakMap, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
+- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer (reselect [already allows this](https://github.com/reactjs/reselect/blob/master/README.md#createselectorcreatormemoize-memoizeoptions)). If you are targeting a browser that does not support WeakMap, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
 - Comfy redux-selectors allows you to create a selector from a simple selector string. Under the hood it uses lodash.get, which must be added as a peer dependency. A future version will (hopefully) make it easy to use either lodash.get, lodash/get, or your own get.
+- If you use `composeSelectors` you must have redux installed as a peer dependency. Under the hood, `composeSelectors` uses `compose` from redux.
 
 ## Installation
 
@@ -15,100 +16,105 @@ Reselect is really awesome! Comfy redux-selectors was created to smooth over som
 yarn add @comfy/redux-selectors lodash.get redux
 ```
 
-## Examples
+## API
+
+- createSelector
+- createSelectorWithArgs
+- combineSelectors
+- composeSelectors
+- memoizeSelector
+- createStateSelector
+- createPropsSelector
+
+## Usage Examples
 
 ### Simple text selector
 
-Here you can see a simple selector that uses lodash.get to select a value from the state. Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from the state. The great benefit of using lodash.get is that it will return undefined if the state is not available. This makes it simple to create selectors that won't throw errors if the state isn't fully initialized.
+Here you can see a simple selector that uses lodash.get to select a value from the state. Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from the state. The great benefit of using lodash.get is that it will return `undefined` (instead of throwing an error) if the state is not available.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
 
-export const selectOne = createSelector('branchOne.one') // <-- not memoized
+export const selectApples = createSelector('fruit.apples') // <-- not memoized
 
 // --- usage
 
 const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 }
+  fruit: { apples: 1, oranges: 2 }
 }
-const value = selectOne(state)
-console.log(value) // --> 1
+
+selectApples(state) // --> 1
 ```
 
-- `selectOne` is a selector function that accepts state and returns a value
+- `selectApples` is a selector function that accepts state and returns a value
 - It is not memoized because it's faster to simply return the value from state
 - `createSelector` is a convenience function for creating a selector around lodash.get
 
 ### Writing this yourself
-Here is an example of how to recreate what `createSelector` is doing.
+
+Here is an example of how to recreate what `createSelector` is doing. Using lodash.get, it's easy to select a value from the state.
 
 ```js
-import { createSelector } from '@comfy/redux-selectors'
 import get from 'lodash.get'
 
-// these are equivalent
-export const selectOne = createSelector('branchOne.one')
-export const selectOneAlso = state => get(state, 'branchOne.one')
+export const selectOranges = state => get(state, 'fruit.oranges')
 ```
 
-### Passing a custom function as a selector
+### Passing a function as a selector
 
-You can also pass a single function to `createSelector`, although it's not strictly necessary. Under the hood, the `createSelector` function doesn't do anything with a passed selector function.
+You can also pass a function to `createSelector`, although it's particularly useful. Under the hood, the `createSelector` function simply returns a passed function.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
 
 // these are equivalent
-export const selectTwo = createSelector(state => state.branchOne.two) // <-- not terribly useful
-export const selectTwoAlso = state => state.branchOne.two
+export const selectOranges = state => state.fruit.oranges
+export const selectOrangesToo = createSelector(selectOranges)
 
-// --- usage
-
-const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 }
-}
-const value = selectTwo(state)
-console.log(value) // --> 2
+console.log(selectOranges === selectOrangesToo) // --> true
 ```
 
 ### Creating meta selectors
 
-The real benefit of `createSelector` is in combining multiple selectors together into a meta selector. This form is similar to reselect.
+The real benefit of `createSelector` is in combining multiple selectors together. This form is similar to reselect.
 
-If you pass two or more arguments to `createSelector`, it will presume that the last argument is a "results function." The rest of the functions are selectors. This makes it easy to gather a bunch of values from the state and glue them together.
+If you pass two or more arguments to `createSelector`, it will presume that the last argument is a "results function." The rest of the functions are treated as selectors. This makes it easy to gather a bunch of values from the state and glue them together.
 
 Below you can see that we are able to specify a number of selectors and feed their values to a results function that combines them.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
 
-export const selectOne = createSelector('branchOne.one')
-export const selectTwo = state => state.branchOne.two
+export const selectApples = createSelector('fruit.apples')
+export const selectOranges = createSelector('fruit.oranges')
 
 // a meta selector
 export const selectTotal = createSelector(
-  selectOne, // <-- use existing selectors
-  selectTwo,
-  'branchTwo.three', // <-- create new selectors
-  state => state.branchTwo.four,
-  (one, two, three, four) => one + two + three + four // <-- results function
+  // use existing selectors
+  selectApples,
+  selectOranges,
+
+  // or create new selectors
+  'veggies.peas',
+  state => state.veggies.carrots,
+
+  // results function
+  (apples, oranges, peas, carrots) => apples + oranges + peas + carrots
 )
 
 // --- usage
 
 const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 }
+  fruit: { apples: 1, oranges: 2 },
+  veggies: { peas: 3, carrots: 4 }
 }
-const value = selectTotal(state) // <-- memoized by state
-console.log(value) // --> 10
+
+selectTotal(state) // --> 10
 ```
 
 ### Creating selectors with arguments
 
-Sometimes you need to pass arguments to selectors. For philosophical reasons reselect advises against this pattern, reasoning that the input arguments should be stored in the state. However, inevitably you need to configure selectors to make them more reusable.
+Sometimes you need to pass arguments to selectors. Reselect advises that the arguments should preferably [come from props](https://github.com/reactjs/reselect/blob/master/README.md#q-how-do-i-create-a-selector-that-takes-an-argument). However, inevitably you need to configure selectors to make them more reusable.
 
 ```js
 import { createSelector, createSelectorWithArgs } from '@comfy/redux-selectors'
@@ -122,16 +128,10 @@ export const selectTotalPlus = createSelectorWithArgs((plus = 0, minus = 0) => c
 // ---
 
 const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 }
+  fruit: { apples: 1, oranges: 2 },
+  veggies: { peas: 3, carrots: 4 }
 }
-const selector = selectTotalPlus(2, 3) // <-- memoized by args
-const value = selector(state) // <-- memoized by state
-
-console.log(value) // --> 9
-
-// use it like a curried function
-selectTotalPlus(2, 3)(state)
+selectTotalPlus(2, 3)(state) // --> 9
 ```
 
 ### Combining selectors (mapStateToProps)
@@ -141,28 +141,31 @@ Sometimes you need to take combine several selectors into a single object. A cla
 ```js
 import { combineSelectors } from '@comfy/redux-selectors'
 
-import { selectOne, selectTwo, selectTotal, selectTotalPlus } from './selectors'
+import { selectApples, selectOranges, selectTotal, selectTotalPlus } from './selectors'
 
 const mapStateToProps = combineSelectors({
-  one: selectOne, // <-- use existing selectors
-  two: selectTwo,
+  // use existing selectors
+  apples: selectApples,
+  oranges: selectOranges,
   total: selectTotal,
-  totalPlus: selectTotalPlus(3), // <-- initialize selectors with args
-  appleCount: 'fruit.apples', // <-- create new selectors
-  orangeCount: state => state.fruit.oranges,
+
+  // initialize selectors with args from ownProps
+  totalPlus: (state, ownProps) => selectTotalPlus(ownProps.plus, ownProps.minus)(state),
+
+  // create new selectors
+  peas: 'veggies.peas',
+  carrots: state => state.veggies.carrots,
 })
 
 // ---
 
 const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 },
-  fruit: { apples: 5, oranges: 6 }
+  fruit: { apples: 1, oranges: 2 },
+  veggies: { peas: 3, carrots: 4 }
 }
 
-const props = mapStateToProps(state)
-
-console.log(props) // --> { one: 1, two: 2, total: 10, totalPlus: 13, appleCount: 5, orangeCount: 6 }
+mapStateToProps(state)
+// --> { apples: 1, oranges: 2, total: 10, totalPlus: 13, peas: 5, carrots: 6 }
 ```
 
 ### Combining selectors (createSelector)
@@ -171,26 +174,25 @@ You might also enjoy using `combineSelectors` along with `createSelector` in ord
 
 ```js
 import { createSelector, combineSelectors } from '@comfy/redux-selectors'
-import { selectOne, selectTwo, selectTotal } from './selectors'
+import { selectApples, selectOranges, selectTotal } from './selectors'
 
-export const selectSubTotal = createSelector(
+export const selectFruitlessTotal = createSelector(
   combineSelectors({
-    one: selectOne,
-    two: selectTwo,
+    apples: selectApples,
+    oranges: selectOranges,
     total: selectTotal
   }),
-  ({ one, two, total }) => total - one - two
+  ({ apples, oranges, total }) => total - apples - oranges
 )
 
 // ---
 
 const state = {
-  branchOne: { one: 1, two: 2 },
-  branchTwo: { three: 3, four: 4 }
+  fruit: { apples: 1, oranges: 2 },
+  veggies: { peas: 3, carrots: 4 }
 }
-const value = selectSubTotal(state)
 
-console.log(value) // --> 7
+selectFruitlessTotal(state) // --> 7
 ```
 
 ### Composing selectors
@@ -200,20 +202,20 @@ When you are building out selectors for your reducer, you may want to compose al
 ```js
 import { createSelector, composeSelectors } from '@comfy/redux-selectors'
 
-export const selectRoot = createSelector('sectionA.subSectionC') // <-- imagine if the reducer is moved to subSectionB
+export const selectRoot = createSelector('section.produce') // <-- imagine if the "section" reducer is renamed to "department"
 export const selectFruit = composeSelectors(selectRoot, 'fruit')
-export const selectAppleCount = composeSelectors(selectFruit, fruit => fruit.apples)
+export const selectApples = composeSelectors(selectFruit, 'apples')
 
 // ---
 
 const state = {
-  sectionA: {
-    subSectionC: {
-      fruit: { apples: 5, oranges: 6 }
+  section: {
+    produce: {
+      fruit: { apples: 1, oranges: 2 },
+      veggies: { peas: 3, carrots: 4 }
     }
   }
 }
-const value = selectAppleCount(state)
 
-console.log(value) // --> 5
+selectApples(state) // --> 1
 ```
