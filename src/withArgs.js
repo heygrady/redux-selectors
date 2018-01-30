@@ -6,10 +6,10 @@ const withArgs = selectorCreator => {
   const creator = memoizeCreator(selectorCreator)
   return (...args) => {
     if (args[0] === USE_PROPS_AS_ARGS && args.length === 1) {
-      return (...args) => {
-        const [, ...props] = args
+      return (...selectorArgs) => {
+        const [, ...props] = selectorArgs
         const selector = creator.apply(null, props)
-        return selector.apply(null, args)
+        return selector.apply(null, selectorArgs)
       }
     }
     return creator.apply(null, args)

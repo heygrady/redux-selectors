@@ -1,10 +1,10 @@
 # `withArgs(selectorCreator)`
 
-This is a convenience method for creating configurable curried selectors. This is most useful for creating a configurable selector library.
+This is a convenience method for creating configurable curried selectors. Configurable selectors can accept arguments that affect the return value. For example, imagine a generic selector that can return an object based on an ID.
 
-If you are a current user of reselect you may have come across cases where you wanted to pass additional arguments to your selector. By design, [reselect discourages curried selectors](https://github.com/reactjs/reselect#q-how-do-i-create-a-selector-that-takes-an-argument) in favor of using either `state` or `props` to configure selectors &mdash; removing the need to create curried selectors in the first place. The redux manual refers to [re-reselect](https://github.com/toomuchdesign/re-reselect) to solve the issue in a similar manner, without needing curried selectors.
+In order to smooth over some of the pain of creating curried selectors, redux-selectors provides `withArgs`. It is a memoized wrapper that allows you to provide a selector creator function that accepts arguments and returns a selector. Under the hood, `withArgs` simply memoizes the selectors the provided `selectorCreator` returns for the given `args`.
 
-In order to smooth over some of the pain of creating curried selectors, redux-selectors provides `withArgs`. It is memoized wrapper that allows you to provide a selector creator function that accepts arguments and returns a selector.
+If you are a current user of reselect you may have come across cases where you wanted to pass additional arguments to your selector. By design, [reselect discourages curried selectors](https://github.com/reactjs/reselect#q-how-do-i-create-a-selector-that-takes-an-argument) in favor of using either `state` or `props` to configure selectors &mdash; removing the need to create curried selectors in the first place. The reselect manual refers to [re-reselect](https://github.com/toomuchdesign/re-reselect) to solve the issue in a similar manner, without needing curried selectors.
 
 ## Basic Usage
 
@@ -19,11 +19,22 @@ const state = { foo: 'bar' }
 selectFoo('foo')(state) // --> bar
 ```
 
+**Note:** The above example does not benefit from memoization and could be better written as a plain function.
+
+```js
+const selectFoo = key => state => state[key]
+
+const state = { foo: 'bar' }
+selectFoo('foo')(state) // --> bar
+```
+
 ## Advanced Usage
 
-Consider this example below. Imagine that we have a array of objects in state. We could write a generic selector that returns objects by id. You can see below that `selectOranges` is a normal selector that simply returns an array. `selectOrangeById` is a configurable, curried selector. First you pass an ID and then you pass state. The `withArgs` function memoizes the selector for each ID while `createSelector` memoizes the result.
+Imagine that we have a array of objects in state. Below we will write a generic selector that returns objects by ID.
 
-`selectSizeById` showcases how configurable selectors can be chained. You can see that `selectSizeById(id)` will return a composed selector that will first call `selectOrangeById(id)` and then select the `size` attribute from the result.
+You can see below that `selectOranges` is a normal selector that simply returns an array. `selectOrangeById` is a configurable, curried selector. First you pass an `id` and then you pass `state`. The `withArgs` function memoizes the selector for each ID while `createSelector` memoizes the result.
+
+`selectSizeById` showcases how configurable selectors can be composed together. Because it depends on a fully memoized selector, it does not need to be memoized itself.
 
 ```js
 import { createSelector, composeSelectors, withArgs } from '@comfy/redux-selectors'
@@ -37,17 +48,13 @@ export const selectOrangeById = withArgs(id =>
   )
 )
 
-export const selectSizeById = withArgs(id =>
-  composeSelectors(
-    selectOrangeById(id),
-    'size'
-  )
+export const selectSizeById = id => composeSelectors(
+  selectOrangeById(id),
+  'size'
 )
 ```
 
 ### Advanced usage example
-
-Given the advanced example above, you can see how you might use them.
 
 ```js
 const state = {
@@ -64,7 +71,7 @@ selectSizeById(3)(state)  // --> small
 
 ## With Reselect
 
-Below we can see an example following the format recommended in the reselect manual. The idea is to create a curried select that first creates a selector that returns a function. This type of curried selector is called in stages, first with state and then with additional arguments.
+Below we can see an example following the format recommended in the reselect manual. The idea is to create a selector that is called in stages, first with state and then with additional arguments.
 
 We will see in examples further below that passing the arguments in the second call is awkward. Comfy redux-selectors offers a [`composeSelectors`](./composeSelectors.md) function that illustrates the issue.
 
@@ -148,8 +155,6 @@ const state = {
   ]
 }
 
-const value = selectBigFruit(state)
-const sameValue = selectFruitBig(state)
-
-console.log(value) // --> [  { id: 5, size: 'big' }, { id: 1, size: 'big' }]
+selectBigFruit(state) // --> [{ id: 5, size: 'big' }, { id: 1, size: 'big' }]
+selectFruitBig(state) // same
 ```

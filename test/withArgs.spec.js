@@ -4,15 +4,17 @@ import withArgs, { USE_PROPS_AS_ARGS } from '../src/withArgs'
 describe('redux-selectors', () => {
   let state
   let creator
+  let selectTwo
   beforeEach(() => {
     state = {
       one: 1,
       two: 2
     }
+    selectTwo = jest.fn(state => state.two)
     creator = jest.fn((plus = 0, minus = 0) =>
       createSelector(
         'one',
-        state => state.two,
+        selectTwo,
         (one, two) => one + two + plus - minus
       )
     )
@@ -31,13 +33,36 @@ describe('redux-selectors', () => {
       expect(result).toBe(4)
       expect(creator).toHaveBeenCalledTimes(1)
     })
+    it('calls the creator twice', () => {
+      const selector = withArgs(creator)
+      selector(3, 2)(state)
+      selector(1, 1)(state)
+      const result = selector(3, 2)(state)
+      expect(result).toBe(4)
+      expect(creator).toHaveBeenCalledTimes(2)
+    })
+    it('creates the selector once', () => {
+      const selector = withArgs(creator)
+      selector(3, 2)(state)
+      selector(3, 2)(state)
+      selector(3, 2)(state)
+      expect(selectTwo).toHaveBeenCalledTimes(1)
+    })
+    it('creates the selector twice', () => {
+      const selector = withArgs(creator)
+      selector(3, 2)(state)
+      selector(1, 1)(state)
+      selector(3, 2)(state)
+      expect(selectTwo).toHaveBeenCalledTimes(2)
+    })
+
     describe('USE_PROPS_AS_ARGS', () => {
       beforeEach(() => {
-        creator = jest.fn(({ plus, minus } = {}, { hidden = 1 } = {}) =>
+        creator = jest.fn(({ plus, minus } = {}, { times = 1 } = {}) =>
           createSelector(
             'one',
-            state => state.two,
-            (one, two) => (one + two + plus - minus) * hidden
+            selectTwo,
+            (one, two) => (one + two + plus - minus) * times
           )
         )
       })
@@ -49,7 +74,14 @@ describe('redux-selectors', () => {
         expect(result).toBe(4)
         expect(creator).toHaveBeenCalledTimes(1)
       })
-      it('correctly memoizes', () => {
+      it('calls the creator once', () => {
+        const selector = withArgs(creator)
+        const props = { plus: 3, minus: 2 }
+        selector(USE_PROPS_AS_ARGS)(state, props)
+        selector(props)(state)
+        expect(creator).toHaveBeenCalledTimes(1)
+      })
+      it('calls the creator twice', () => {
         const selector = withArgs(creator)
         const props = { plus: 3, minus: 2 }
         selector(USE_PROPS_AS_ARGS)(state, props)
@@ -57,10 +89,24 @@ describe('redux-selectors', () => {
         selector()(state)
         expect(creator).toHaveBeenCalledTimes(2)
       })
-      it('passed multiple args', () => {
+      it('creates the selector once', () => {
         const selector = withArgs(creator)
         const props = { plus: 3, minus: 2 }
-        const extra = { hidden: 2 }
+        selector(USE_PROPS_AS_ARGS)(state, props)
+        selector(props)(state, props)
+        expect(selectTwo).toHaveBeenCalledTimes(1)
+      })
+      it('creates the selector twice', () => {
+        const selector = withArgs(creator)
+        const props = { plus: 3, minus: 2 }
+        selector(USE_PROPS_AS_ARGS)(state, props)
+        selector(props)(state)
+        expect(selectTwo).toHaveBeenCalledTimes(2)
+      })
+      it('passes multiple args', () => {
+        const selector = withArgs(creator)
+        const props = { plus: 3, minus: 2 }
+        const extra = { times: 2 }
         const result = selector(USE_PROPS_AS_ARGS)(state, props, extra)
         expect(result).toBe(8)
       })
