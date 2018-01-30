@@ -1,4 +1,4 @@
-# composeSelectors
+# `composeSelectors(...selectors)`
 
 Compose selectors is based on redux's [`compose`](https://github.com/reactjs/redux/blob/master/docs/api/compose.md) function. This is the reason that redux is a peer dependency to Comfy redux-selectors.
 

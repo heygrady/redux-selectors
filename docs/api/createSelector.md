@@ -1,4 +1,4 @@
-# createSelector(...selectors)
+# `createSelector(...selectors, resultsFunc)` and `createSelector(string)`
 
 
 ## Simple selector

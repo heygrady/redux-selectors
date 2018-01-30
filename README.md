@@ -1,13 +1,16 @@
 # Comfy Redux Selectors
-Standard API for creating memoized state selectors. Very similar to [reselect](https://github.com/reactjs/reselect). If reselect is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
+Standard API for creating memoized state selectors... very similar to [reselect](https://github.com/reactjs/reselect). If reselect is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
 
-## Differences from reselect
-Reselect is really awesome! Comfy redux-selectors was created to smooth over some common edge cases that you run into with reselect. Notably, [`createSelectorWithArgs`](./docs/createSelectorWithArgs.md) is not available with reselect directly. Comfy redux-selectors also offers a thin wrapper around [lodash.get](https://www.npmjs.com/package/lodash.get) for quickly creating selectors from a selector string.
+In addition to everything reselect lets you do, comfy redux-selectors allows you to:
+
+- Create curried selectors
+- Create selectors from a string
+- `combineSelectors` and `composeSelectors`
 
 ### Important notes:
 
-- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer (reselect [already allows this](https://github.com/reactjs/reselect/blob/master/README.md#createselectorcreatormemoize-memoizeoptions)). If you are targeting a browser that does not support WeakMap, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
-- Comfy redux-selectors allows you to create a selector from a simple selector string. Under the hood it uses lodash.get, which must be added as a peer dependency. A future version will (hopefully) make it easy to use either lodash.get, lodash/get, or your own get.
+- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer (reselect [already allows this](https://github.com/reactjs/reselect/blob/master/README.md#createselectorcreatormemoize-memoizeoptions)). If you are targeting a browser that does not support `WeakMap`, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
+- Comfy redux-selectors allows you to create a selector from a simple selector string. Under the hood it uses `lodash.get`, which must be added as a peer dependency. A future version will (hopefully) make it easy to use either `lodash.get`, `lodash/get`, or your own get.
 - If you use `composeSelectors` you must have redux installed as a peer dependency. Under the hood, `composeSelectors` uses `compose` from redux.
 
 ## Installation
@@ -18,13 +21,13 @@ yarn add @comfy/redux-selectors lodash.get redux
 
 ## API
 
-- createSelector
-- createSelectorWithArgs
-- combineSelectors
-- composeSelectors
-- memoizeSelector
-- createStateSelector
-- createPropsSelector
+- [`createSelector(...selectors, resultsFunc)` and `createSelector(string)`](/docs/api/createSelector.md)
+- [`createSelectorWithArgs((...args) => selector)`](/docs/api/createSelectorWithArgs.md)
+- [`combineSelectors(selectorMap)`](/docs/api/combineSelectors.md)
+- [`composeSelectors(...selectors)`](/docs/api/composeSelectors.md)
+- [`memoizeSelector(selector)`](/docs/api/memoizeSelector.md)
+- [`createStateSelector(selector)`](/docs/api/createStateSelector.md)
+- [`createPropsSelector(selector)`](/docs/api/createPropsSelector.md)
 
 ## Usage Examples
 
@@ -74,11 +77,9 @@ export const selectOrangesToo = createSelector(selectOranges)
 console.log(selectOranges === selectOrangesToo) // --> true
 ```
 
-### Creating meta selectors
+### Creating dependent selectors
 
-The real benefit of `createSelector` is in combining multiple selectors together. This form is similar to reselect.
-
-If you pass two or more arguments to `createSelector`, it will presume that the last argument is a "results function." The rest of the functions are treated as selectors. This makes it easy to gather a bunch of values from the state and glue them together.
+The real benefit of `createSelector` is in computing values from dependent selectors. If you pass two or more arguments to `createSelector` it will presume that the last argument is a "results function." The rest of the arguments are treated as selectors. This makes it easy to gather a bunch of values from the state and glue them together.
 
 Below you can see that we are able to specify a number of selectors and feed their values to a results function that combines them.
 

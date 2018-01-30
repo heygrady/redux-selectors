@@ -1,4 +1,4 @@
-# createSelectorWithArgs
+# `createSelectorWithArgs((...args) => selector)`
 
 This is a convenience method for creating configurable curried selectors. This is most useful for creating a configurable selector library.
 

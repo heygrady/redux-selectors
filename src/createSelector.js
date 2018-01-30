@@ -21,13 +21,13 @@ export const createPropsSelector = selector => {
 const createSelector = (...selectors) => {
   const length = selectors.length
   if (length > 1) {
-    const lastSelector = selectors[length - 1]
+    const resultsFunc = selectors[length - 1]
     const otherSelectors = selectors
       .slice(0, -1)
       .map(selector => createStateSelector(selector))
     return memoizeSelector((...args) => {
       const values = mapSelectorsToArgs(otherSelectors, args)
-      return lastSelector.apply(null, values)
+      return resultsFunc.apply(null, values)
     })
   }
   return createStateSelector(selectors[0])
