@@ -11,7 +11,7 @@
 
 ### API
 - [createSelector](/docs/api/createSelector.md)
-- [createSelectorWithArgs](/docs/api/createSelectorWithArgs.md)
+- [withArgs](/docs/api/withArgs.md)
 - [combineSelectors](/docs/api/combineSelectors.md)
 - [composeSelectors](/docs/api/composeSelectors.md)
 - [memoizeSelector](/docs/api/memoizeSelector.md)

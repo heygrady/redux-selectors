@@ -1,5 +1,6 @@
-const createKeyMap = () => {
+export const createKeyMap = () => {
   const keyCache = new WeakMap()
+  const keyMarker = {}
 
   return args => {
     const lastIndex = args.length - 1
@@ -8,11 +9,14 @@ const createKeyMap = () => {
     }
     return args.reduce((map, arg, i) => {
       if (!map.has(arg)) {
+        const nestedMap = new WeakMap()
+        map.set(arg, nestedMap)
         if (i === lastIndex) {
-          map.set(arg, new WeakSet(args))
-        } else {
-          map.set(arg, new WeakMap())
+          nestedMap.set(keyMarker, new WeakSet(args))
         }
+      }
+      if (i === lastIndex) {
+        return map.get(arg).get(keyMarker)
       }
       return map.get(arg)
     }, keyCache)

@@ -22,7 +22,7 @@ yarn add @comfy/redux-selectors lodash.get redux
 ## API
 
 - [`createSelector(...selectors, resultsFunc)` and `createSelector(string)`](/docs/api/createSelector.md)
-- [`createSelectorWithArgs((...args) => selector)`](/docs/api/createSelectorWithArgs.md)
+- [`withArgs((...args) => selector)`](/docs/api/withArgs.md)
 - [`combineSelectors(selectorMap)`](/docs/api/combineSelectors.md)
 - [`composeSelectors(...selectors)`](/docs/api/composeSelectors.md)
 - [`memoizeSelector(selector)`](/docs/api/memoizeSelector.md)
@@ -118,10 +118,10 @@ selectTotal(state) // --> 10
 Sometimes you need to pass arguments to selectors. Reselect advises that the arguments should preferably [come from props](https://github.com/reactjs/reselect/blob/master/README.md#q-how-do-i-create-a-selector-that-takes-an-argument). However, inevitably you need to configure selectors to make them more reusable.
 
 ```js
-import { createSelector, createSelectorWithArgs } from '@comfy/redux-selectors'
+import { createSelector, withArgs } from '@comfy/redux-selectors'
 import { selectTotal } from './selectors'
 
-export const selectTotalPlus = createSelectorWithArgs((plus = 0, minus = 0) => createSelector(
+export const selectTotalPlus = withArgs((plus = 0, minus = 0) => createSelector(
   selectTotal,
   total => total + plus - minus
 ))

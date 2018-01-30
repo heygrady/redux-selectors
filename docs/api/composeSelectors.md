@@ -7,7 +7,7 @@ Compose selectors is based on redux's [`compose`](https://github.com/reactjs/red
 ## Usage
 
 ```js
-import { createSelector, composeSelectors, createSelectorWithArgs } from '@comfy/redux-selectors'
+import { createSelector, composeSelectors, withArgs } from '@comfy/redux-selectors'
 
 export const selectRoot = createSelector('department.produce')
 

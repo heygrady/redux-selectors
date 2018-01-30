@@ -16,7 +16,6 @@ describe('redux-selectors', () => {
   describe('composeSelectors', () => {
     it('returns an deep value', () => {
       const selector = composeSelectors('forkOne', 'forkTwo', 'one')
-      console.log(selector(state))
       const result = selector(state)
       expect(result).toBe(1)
     })

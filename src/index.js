@@ -2,17 +2,18 @@ import createSelector, {
   createStateSelector,
   createPropsSelector
 } from './createSelector'
-import createSelectorWithArgs from './createSelectorWithArgs'
+import withArgs from './withArgs'
 import combineSelectors from './combineSelectors'
 import composeSelectors from './composeSelectors'
-import memoizeSelector from './memoizeSelector'
+import memoizeSelector,  { USE_PROPS_AS_ARGS } from './memoizeSelector'
 
 export {
   createSelector,
   createStateSelector,
   createPropsSelector,
-  createSelectorWithArgs,
+  withArgs,
   combineSelectors,
   composeSelectors,
-  memoizeSelector
+  memoizeSelector,
+  USE_PROPS_AS_ARGS
 }
