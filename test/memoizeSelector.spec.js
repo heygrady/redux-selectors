@@ -19,6 +19,11 @@ describe('redux-selectors', () => {
       two = { two: 2 }
       three = { three: 3 }
     })
+    it('returns the same key (zero args)', () => {
+      const key1 = getKey([])
+      const key2 = getKey([])
+      expect(key1).toBe(key2)
+    })
     it('returns the same key (one arg)', () => {
       const key1 = getKey([one])
       const key2 = getKey([one])

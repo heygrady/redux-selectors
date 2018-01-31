@@ -10,9 +10,11 @@ describe('redux-selectors', () => {
       baz: true,
       other: false
     }
-    mapStateToProps = withState(combineSelectors({
-      item: state => state.foo
-    }))
+    mapStateToProps = withState(
+      combineSelectors({
+        item: state => state.foo
+      })
+    )
   })
   describe('withState', () => {
     it('returns the correct value', () => {

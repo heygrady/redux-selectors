@@ -3,12 +3,12 @@
 - [Read Me](/README.md)
 
 ### Usage
-- [simple selectors](/docs/usage/simple-selectors.md)
-- [dependent selectors](/docs/usage/dependent-selectors.md)
-- [selectors with args](/docs/usage/selectors-with-args.md)
-- [with `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
-- [composing selectors](/docs/usage/composing-selectors.md)
-- [comparing with reselect](/docs/usage/comparing-with-reselect.md)
+- [Simple selectors](/docs/usage/simple-selectors.md)
+- [Dependent selectors](/docs/usage/dependent-selectors.md)
+- [Selectors with args](/docs/usage/selectors-with-args.md)
+- [With `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
+- [Composing selectors](/docs/usage/composing-selectors.md)
+- [Comparing with reselect](/docs/usage/comparing-with-reselect.md)
 
 ### API
 - [createSelector](/docs/api/createSelector.md)

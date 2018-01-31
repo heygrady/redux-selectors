@@ -11,10 +11,12 @@ describe('redux-selectors', () => {
       foo: 'bar'
     }
     ownProps = { id: 1 }
-    mapStateToProps = withProps(combineSelectors({
-      item: state => state.foo,
-      id: createPropsSelector(props => props.id)
-    }))
+    mapStateToProps = withProps(
+      combineSelectors({
+        item: state => state.foo,
+        id: createPropsSelector(props => props.id)
+      })
+    )
   })
   describe('withProps', () => {
     it('returns the correct value', () => {

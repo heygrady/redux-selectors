@@ -1,10 +1,10 @@
 # Dependent selectors
 
-One of the key features of reselect is the ability to compute values from dependent selectors. This same functionality is supported in redux-selectors as well. Like reselect, you simply need to pass two or more functions to `createSelector`. The last function is treated as a "results function" while every other function is treated as a selector. The values from each dependent selector become the arguments for the results function.
+Comfy redux selectors allows you to compute values from dependent selectors. This same functionality is supported in reselect as well. Like reselect, you simply need to pass two or more functions to `createSelector`. The last function is treated as a "results function" while every other function is treated as a selector. The values from each dependent selector become the arguments for the results function.
 
 Unlike simple selectors, dependent selectors are memoized using [`memoizeSelector`](/docs/api/memoizeSelector.md). This means that the value returned from the results function is cached until the state changes.
 
-For convenience, `createSelector` supports both functional and string selectors. This enables you to easily create robust selectors on-the-fly if needed. Under the hood, each selector is passed thru [`createStateSelector`](/docs/api/createStateSelector.md) in order to transform string selectors into functional selectors.
+For convenience, `createSelector` supports both functions and path strings. This enables you to easily create robust selectors on-the-fly if needed. Under the hood, each selector is passed thru [`createStateSelector`](/docs/api/createStateSelector.md) in order to transform path strings into functional selectors.
 
 ```js
 import { createSelector } '@comfy/redux-selectors'
@@ -38,8 +38,7 @@ selectTotal(state) // --> 10
 
 ### Using get and reselect instead
 
-Comfy redux-selectors isn't doing anything particularly special. You can accomplish the same result with reselect. Compare the following example that uses reselect and get to accomplish the example same result. Just like redux-selectors, reselect will memoize your dependent selector.
-
+Comfy redux-selectors isn't doing anything particularly special. You can accomplish the same result with reselect. Compare the following example that uses reselect and get. Just like redux-selectors, reselect will memoize your dependent selector.
 
 ```js
 import { createSelector as createReselectSelector } 'reselect' // <-- use reselect if you want

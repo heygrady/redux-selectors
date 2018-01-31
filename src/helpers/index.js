@@ -5,6 +5,7 @@ export const withState = (...args) => {
   const selector = createSelector(...args)
   return state => selector(state)
 }
+
 export const withProps = (...args) => {
   const selector = createSelector(...args)
   return (state, props) => selector(state, props)
