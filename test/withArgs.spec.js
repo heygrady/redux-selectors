@@ -58,7 +58,8 @@ describe('redux-selectors', () => {
 
     describe('USE_PROPS_AS_ARGS', () => {
       beforeEach(() => {
-        creator = jest.fn(({ plus, minus } = {}, { times = 1 } = {}) =>
+        selectTwo = jest.fn(state => state.two)
+        creator = jest.fn(({ plus = 0, minus = 0, times = 1 } = {}) =>
           createSelector(
             'one',
             selectTwo,
@@ -69,7 +70,7 @@ describe('redux-selectors', () => {
       it('creates a selector using props as args', () => {
         const selector = withArgs(creator)
         const props = { plus: 3, minus: 2 }
-        selector(props)(state)
+        selector(props)(state, props)
         const result = selector(USE_PROPS_AS_ARGS)(state, props)
         expect(result).toBe(4)
         expect(creator).toHaveBeenCalledTimes(1)
@@ -105,9 +106,8 @@ describe('redux-selectors', () => {
       })
       it('passes multiple args', () => {
         const selector = withArgs(creator)
-        const props = { plus: 3, minus: 2 }
-        const extra = { times: 2 }
-        const result = selector(USE_PROPS_AS_ARGS)(state, props, extra)
+        const props = { plus: 3, minus: 2, times: 2 }
+        const result = selector(USE_PROPS_AS_ARGS)(state, props)
         expect(result).toBe(8)
       })
     })

@@ -8,6 +8,7 @@
 - [selectors with args](/docs/usage/selectors-with-args.md)
 - [with `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
 - [composing selectors](/docs/usage/composing-selectors.md)
+- [comparing with reselect](/docs/usage/comparing-with-reselect.md)
 
 ### API
 - [createSelector](/docs/api/createSelector.md)

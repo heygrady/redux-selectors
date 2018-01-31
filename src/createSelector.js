@@ -1,7 +1,7 @@
 import get from 'lodash.get'
 import memoizeSelector from './memoizeSelector'
 
-const mapSelectorsToArgs = (selectors, args) =>
+export const mapSelectorsToArgs = selectors => args =>
   selectors.map(selector => selector.apply(null, args))
 
 export const createStateSelector = selector => {
@@ -26,7 +26,7 @@ const createSelector = (...selectors) => {
       .slice(0, -1)
       .map(selector => createStateSelector(selector))
     return memoizeSelector((...args) => {
-      const values = mapSelectorsToArgs(otherSelectors, args)
+      const values = mapSelectorsToArgs(otherSelectors)(args)
       return resultsFunc.apply(null, values)
     })
   }
