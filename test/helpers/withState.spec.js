@@ -1,8 +1,9 @@
-import { withState } from '../../src/helpers/index'
-import combineSelectors from '../../src/combineSelectors'
+import withState from '../../src/helpers/withState'
 
 describe('redux-selectors', () => {
   let state
+  let ownProps
+  let selector
   let mapStateToProps
   beforeEach(() => {
     state = {
@@ -10,16 +11,18 @@ describe('redux-selectors', () => {
       baz: true,
       other: false
     }
-    mapStateToProps = withState(
-      combineSelectors({
-        item: state => state.foo
-      })
-    )
+    ownProps = { bar: 'whoops!' }
+    selector = (state, ownProps = {}) => ownProps.bar || state.foo
+    mapStateToProps = withState(selector)
   })
   describe('withState', () => {
+    it('receives ownProps without withState', () => {
+      const result = selector(state, ownProps)
+      expect(result).toEqual('whoops!')
+    })
     it('returns the correct value', () => {
-      const result = mapStateToProps(state)
-      expect(result).toEqual({ item: 'bar' })
+      const result = mapStateToProps(state, ownProps)
+      expect(result).toEqual('bar')
     })
   })
 })

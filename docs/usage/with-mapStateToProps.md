@@ -129,14 +129,32 @@ Notice that we're defining a `creator` below. This is a configurable selector th
 Notice below that we're manually defining `props` for each call to `mapStateToProps`. Technically these two calls will have different props, even though they have the same values. Fortunately, `withArgs` is memoized by the real value, rather than doing an object equality check. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
 
 ```js
-import { combineSelectors, withArgs, withState } from '@comfy/redux-selectors'
+import { combineSelectors, withArgs, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
 
 const creator = withArgs(props => withState(combineSelectors({
   apples: selectApplesBySize(props.size),
   name: selectName
 })))
 
-const mapStateToProps = (state, ownProps) => creator(ownProps)(state)
+const mapStateToProps = creator(USE_PROPS_AS_ARGS)
+
+mapStateToProps(state, { size: 'big' }) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, { size: 'big' }) // memoized
+```
+
+## Wrapping `combineSelectors` in `withProps`
+
+If you want to use the props-creator pattern, you can save your self some trouble with `withProps`.
+
+```js
+import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'
+
+const creator = withArgs(props => withState(combineSelectors({
+  apples: selectApplesBySize(props.size),
+  name: selectName
+})))
+
+const mapStateToProps = creator(USE_PROPS_AS_ARGS)
 
 mapStateToProps(state, { size: 'big' }) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 mapStateToProps(state, { size: 'big' }) // memoized

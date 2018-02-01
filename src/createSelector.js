@@ -24,7 +24,7 @@ const createSelector = (...selectors) => {
     const resultsFunc = selectors[length - 1]
     const otherSelectors = selectors
       .slice(0, -1)
-      .map(selector => createStateSelector(selector))
+      .map(createStateSelector)
     return memoizeSelector((...args) => {
       const values = mapSelectorsToArgs(otherSelectors)(args)
       return resultsFunc.apply(null, values)

@@ -3,7 +3,8 @@ import createSelector, {
   createPropsSelector
 } from './createSelector'
 import withArgs, { USE_PROPS_AS_ARGS } from './withArgs'
-import { withProps, withState } from './helpers/index'
+import withProps from './helpers/withProps'
+import withState from './helpers/withState'
 import combineSelectors from './combineSelectors'
 import composeSelectors from './composeSelectors'
 import memoizeSelector from './memoizeSelector'
