@@ -149,12 +149,10 @@ If you want to use the props-creator pattern, you can save your self some troubl
 ```js
 import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'
 
-const creator = withArgs(props => withState(combineSelectors({
+const mapStateToProps = withProps(props => withState(combineSelectors({
   apples: selectApplesBySize(props.size),
   name: selectName
 })))
-
-const mapStateToProps = creator(USE_PROPS_AS_ARGS)
 
 mapStateToProps(state, { size: 'big' }) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 mapStateToProps(state, { size: 'big' }) // memoized

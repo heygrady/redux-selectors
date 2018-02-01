@@ -126,9 +126,45 @@ const state = {
 selectApplesBySize('big')(state) // --> [{ id: 1, size: 'big' }]
 ```
 
+### Using `withArgs` and `state` together
+
+Even when you're using `withArgs`, you can still keep your configuration in the state. Consider this example where a `filter.size` has been added to the state. Using `composeSelectors`, we can retrieve the filtered objects with a single call to the selector.
+
+Notice how `selectApplesByFilter` below spreads the external args to both the outer `composeSelectors` and the inner selector returned by `selectApplesBySize`.
+
+```js
+import { createSelector, composeSelectors, withArgs } from '@comfy/redux-selectors'
+
+const selectSize = createSelector('filter.size')
+const selectApplesBySize = withArgs(size => createSelector(
+  'fruit.apples',
+  apples => apples.filter(apple => apple.size === size)
+))
+const selectApplesByFilter = (...args) => composeSelectors(
+  selectSize,
+  selectApplesBySize,
+  selector => selector(...args)
+)(...args)
+
+// ---
+
+const state = {
+  fruit: {
+    apples: [
+      { id: 1, size: 'big' },
+      { id: 2, size: 'small' },
+      { id: 3, size: 'medium' }
+    ]
+  },
+  filter: { size: 'big' }
+}
+
+selectApplesByFilter(state) // --> [{ id: 1, size: 'big' }]
+```
+
 ### Using `withArgs` and `ownProps` together
 
-You can also mix a configurable selector with `ownProps`. In the example below, notice that we're passing a value from `ownProps` into our curried selector. This has the benefit of flexibility. It also allows you to memoize your selector efficiently. By creating a curried function, you can have tight control over how your selector receives configuration.
+You can also mix a configurable selector with `ownProps`. In the example below, notice that we're passing a value from `ownProps` into our curried selector. By creating a curried function, you can have tight control over how your selector receives configuration. This also allows you to memoize your selector efficiently.
 
 ```js
 import { createSelector, withArgs } from '@comfy/redux-selectors'
@@ -158,12 +194,12 @@ selectApplesBySize(ownProps.size)(state) // --> [{ id: 1, size: 'big' }]
 
 In order to formalize configurable, props-based selectors, there is a special form of `withArgs` that will use the `props` as the args passed to the creator. This special case is useful when combined with [`combineSelectors`](/docs/api/combineSelectors.md) as it allows you to easily use the `props` to configure your selector when they are available and otherwise supply the configuration args yourself. This is kind of a "best of both worlds" approach.
 
-Notice below how `size` now comes from a props object. You can see that `USE_PROPS_AS_ARGS` is followed by a path selector, `'size'`, which will be applied to the props object to properly format the props object to match the expected configuration args.
+Notice below how `size` now comes from a props object. The `USE_PROPS_AS_ARGS` constant tells `withArgs` to use the `ownProps` as the configuration. Under the hood, this tells `withArgs` to wrap itself in `withProps`.
 
 ```js
 import { createSelector, withArgs, withState } from '@comfy/redux-selectors'
 
-const selectApplesBySize = withArgs(size => withState(createSelector(
+const selectApplesBySize = withArgs(({ size } = {}) => withState(createSelector(
   'fruit.apples',
   apples => apples.filter(apple => apple.size === size)
 )))
@@ -183,11 +219,41 @@ const state = {
 }
 const ownProps = { size: 'big' }
 
-selectApplesBySize(USE_PROPS_AS_ARGS, 'size')(state, ownProps) // --> [{ id: 1, size: 'big' }]
-selectApplesBySize(ownProps.size)(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(USE_PROPS_AS_ARGS)(state, ownProps) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(ownProps)(state) // --> [{ id: 1, size: 'big' }]
 ```
 
-**Note:** There is a small memoizaton issue that is surfaced when using `USE_PROPS_AS_ARGS`. Namely, the internal selector memoization will be different if you pass only `state` versus passing both `state` and `props`. Because selectors are memoized by their *exact* arguments, passing only `state` is stored separately in the cache. Notice above that the inner selector is wrapped in `withState` to prevent it from ever receiving `props`, which will prevent it from recomputing the selector unnecessarily. This is considered safe because `withArgs` will recompute the selector any time `size` changes.
+**Note:** There is a small memoizaton issue that is surfaced when using `USE_PROPS_AS_ARGS`. Namely, the internal selector memoization will be different if you pass only `state` versus passing both `state` and `props`. Because selectors are memoized by their *exact* arguments, passing only `state` is stored separately in the cache.
+
+Notice above that the inner selector is wrapped in `withState` to prevent it from ever receiving `props`, which will prevent it from recomputing the selector unnecessarily. This is considered safe because `withArgs` will recompute the selector any time `size` changes.
+
+### Using `withProps`
+
+You can skip some of the ceremony of `withArgs` and create a selector that always uses `ownProps` for configuration. Below you can see that `selectApplesBySize` is nearly identical to the previous example. However, notice that we're using `withProps` instead of `withArgs`. The big difference is in how the selector is called. See below that the function signature is now `selectApplesBySize(state, ownProps)`.
+
+```js
+import { createSelector, withProps, withState } from '@comfy/redux-selectors'
+
+const selectApplesBySize = withProps(({ size } = {}) => withState(createSelector(
+  'fruit.apples',
+  apples => apples.filter(apple => apple.size === size)
+)))
+
+// ---
+
+const state = {
+  fruit: {
+    apples: [
+      { id: 1, size: 'big' },
+      { id: 2, size: 'small' },
+      { id: 3, size: 'medium' }
+    ]
+  }
+}
+const ownProps = { size: 'big' }
+
+selectApplesBySize(state, ownProps) // --> [{ id: 1, size: 'big' }]
+```
 
 *Next:*
 - [with `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
