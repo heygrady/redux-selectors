@@ -1,6 +1,6 @@
 # Dependent selectors
 
-Comfy redux selectors allows you to compute values from dependent selectors. This same functionality is supported in reselect as well. Like reselect, you simply need to pass two or more functions to `createSelector`. The last function is treated as a "results function" while every other function is treated as a selector. The values from each dependent selector become the arguments for the results function.
+Comfy redux-selectors allows you to compute values from dependent selectors. This same functionality is supported in reselect as well. Like reselect, you simply need to pass two or more functions to `createSelector`. The last function is treated as a "results function" while every other function is treated as a selector. The values from each dependent selector become the arguments for the results function.
 
 Unlike simple selectors, dependent selectors are memoized using [`memoizeSelector`](/docs/api/memoizeSelector.md). This means that the value returned from the results function is cached until the state changes.
 
@@ -33,7 +33,7 @@ const state = {
   veggies: { peas: 3, carrots: 4 }
 }
 
-selectTotal(state) // --> 10
+selectTotal(state) // => 10
 ```
 
 ### Using get and reselect instead
@@ -68,7 +68,7 @@ const state = {
   veggies: { peas: 3, carrots: 4 }
 }
 
-selectTotal(state) // --> 10
+selectTotal(state) // => 10
 ```
 
 *Next:* [selectors with args](/docs/usage/selectors-with-args.md)

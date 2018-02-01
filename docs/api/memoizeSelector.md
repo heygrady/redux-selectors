@@ -26,23 +26,23 @@ const state = { name: 'billy' }
 const ownProps = { id: 1 }
 
 // 1. mutaton is ignored
-selectName(state) // --> billy
+selectName(state) // => billy
 state.name = 'sally'
-selectName(state) // --> billy
+selectName(state) // => billy
 
 // 2. passing more args will trigger a cache miss
-selectName(state, ownProps) // --> sally
+selectName(state, ownProps) // => sally
 state.name = 'timmy' // mutation is _still_ ignored
-selectName(state, ownProps) // --> sally
-selectName(state, ownProps, { extra: true }) // --> timmy
+selectName(state, ownProps) // => sally
+selectName(state, ownProps, { extra: true }) // => timmy
 
 // 3. passing "different" args will trigger a cache miss
-selectName(state, { ...ownProps }) // --> timmy
+selectName(state, { ...ownProps }) // => timmy
 
 // 4. passing the same args will return the same value forever
 const newState = { ...state }
-selectName(newState) // --> timmy
-selectName(state) // --> billy
+selectName(newState) // => timmy
+selectName(state) // => billy
 newState.name = 'timmy' // mutation is _still_ ignored
-selectName(newState) // --> timmy
+selectName(newState) // => timmy
 ```

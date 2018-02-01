@@ -14,7 +14,7 @@ const selectTitle = createStateSelector('title')
 const state = { title: 'marco' }
 const ownProps = { title: 'polo' }
 
-selectTitle(state, ownProps) // --> marco
+selectTitle(state, ownProps) // => marco
 ```
 
 ## Mapping a mixed array
@@ -33,5 +33,5 @@ const selectors = [
 const state = { title: 'marco' }
 const ownProps = { title: 'polo' }
 
-selectors.map(selector => selector(state)) // --> [marco, marco, polo]
+selectors.map(selector => selector(state)) // => [marco, marco, polo]
 ```

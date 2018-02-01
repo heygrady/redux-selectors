@@ -28,7 +28,7 @@ const state = {
   }
 }
 
-selectApplesBySize('big')(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize('big')(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ## You might not need it
@@ -63,7 +63,7 @@ const state = {
 }
 const ownProps = { size: 'big' }
 
-selectApplesBySize(state, ownProps) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(state, ownProps) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Depending on `state` for configuration
@@ -92,7 +92,7 @@ const state = {
   filter: { size: 'big' }
 }
 
-selectApplesBySize(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ## Using `withArgs` for configuration
@@ -123,7 +123,7 @@ const state = {
   }
 }
 
-selectApplesBySize('big')(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize('big')(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Using `withArgs` and `state` together
@@ -159,7 +159,7 @@ const state = {
   filter: { size: 'big' }
 }
 
-selectApplesByFilter(state) // --> [{ id: 1, size: 'big' }]
+selectApplesByFilter(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Using `withArgs` and `ownProps` together
@@ -187,7 +187,7 @@ const state = {
 }
 const ownProps = { size: 'big' }
 
-selectApplesBySize(ownProps.size)(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(ownProps.size)(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Using `withArgs` and `ownProps` with `USE_PROPS_AS_ARGS`
@@ -219,8 +219,8 @@ const state = {
 }
 const ownProps = { size: 'big' }
 
-selectApplesBySize(USE_PROPS_AS_ARGS)(state, ownProps) // --> [{ id: 1, size: 'big' }]
-selectApplesBySize(ownProps)(state) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(USE_PROPS_AS_ARGS)(state, ownProps) // => [{ id: 1, size: 'big' }]
+selectApplesBySize(ownProps)(state) // => [{ id: 1, size: 'big' }]
 ```
 
 **Note:** There is a small memoizaton issue that is surfaced when using `USE_PROPS_AS_ARGS`. Namely, the internal selector memoization will be different if you pass only `state` versus passing both `state` and `props`. Because selectors are memoized by their *exact* arguments, passing only `state` is stored separately in the cache.
@@ -252,7 +252,7 @@ const state = {
 }
 const ownProps = { size: 'big' }
 
-selectApplesBySize(state, ownProps) // --> [{ id: 1, size: 'big' }]
+selectApplesBySize(state, ownProps) // => [{ id: 1, size: 'big' }]
 ```
 
 *Next:*

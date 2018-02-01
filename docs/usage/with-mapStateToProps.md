@@ -47,7 +47,7 @@ const mapStateToProps = (state, ownProps) => ({
   name: selectName(state)
 })
 
-mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
 ## Using `combineSelectors`
@@ -65,7 +65,7 @@ const mapStateToProps = combineSelectors({
   name: selectName
 })
 
-mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
 ## Using `combineSelectors` and `USE_PROPS_AS_ARGS`
@@ -81,7 +81,7 @@ const mapStateToProps = combineSelectors({
   name: selectName
 })
 
-mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
 ## Using `combineSelectors` and `withState`
@@ -101,7 +101,7 @@ const mapStateToProps = withState(combineSelectors({
   name: selectName
 }))
 
-mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
 ## Using `combineSelectors` and `withState` (alternative)
@@ -117,7 +117,7 @@ const mapStateToProps = combineSelectors({
   name: withState(selectName)
 })
 
-mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
 ## Wrapping `combineSelectors` in a creator
@@ -138,7 +138,7 @@ const creator = withArgs(props => withState(combineSelectors({
 
 const mapStateToProps = creator(USE_PROPS_AS_ARGS)
 
-mapStateToProps(state, { size: 'big' }) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, { size: 'big' }) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 mapStateToProps(state, { size: 'big' }) // memoized
 ```
 
@@ -154,6 +154,6 @@ const mapStateToProps = withProps(props => withState(combineSelectors({
   name: selectName
 })))
 
-mapStateToProps(state, { size: 'big' }) // --> { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, { size: 'big' }) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 mapStateToProps(state, { size: 'big' }) // memoized
 ```

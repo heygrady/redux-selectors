@@ -32,8 +32,8 @@ const state = {
     { id: 3, size: 'small' }
   ]
 }
-selectOrangeById(state)(2) // --> { id: 2, size: 'medium' }
-selectSizeById(state)(2) // --> medium
+selectOrangeById(state)(2) // => { id: 2, size: 'medium' }
+selectSizeById(state)(2) // => medium
 ```
 
 ## Why use `withArgs`
@@ -86,6 +86,6 @@ const state = {
   ]
 }
 
-selectBigFruit(state) // --> [{ id: 5, size: 'big' }, { id: 1, size: 'big' }]
+selectBigFruit(state) // => [{ id: 5, size: 'big' }, { id: 1, size: 'big' }]
 selectFruitBig(state) // same
 ```

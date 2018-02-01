@@ -14,5 +14,5 @@ const ownProps = {
   bar: 'baz'
 }
 
-mapStateToProps(state, ownProps) // --> baz
+mapStateToProps(state, ownProps) // => baz
 ```

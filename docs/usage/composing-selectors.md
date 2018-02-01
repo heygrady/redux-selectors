@@ -28,7 +28,7 @@ const state = {
   }
 }
 
-selectA(state) === selectB(state) // --> true
-selectDeep(state) // --> 1
-selectWhoops(state) // --> undefined
+selectA(state) === selectB(state) // => true
+selectDeep(state) // => 1
+selectWhoops(state) // => undefined
 ```

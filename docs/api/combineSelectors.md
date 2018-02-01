@@ -22,7 +22,7 @@ const state = {
   other: false
 }
 
-mapStateToProps(state) // --> { item: 'bar', other: true }
+mapStateToProps(state) // => { item: 'bar', other: true }
 ```
 
 ## Ignoring `props`
@@ -49,7 +49,7 @@ const state = {
   }
 }
 
-mapStateToProps(state) // --> { item: 2 }
+mapStateToProps(state) // => { item: 2 }
 ```
 
 ## Ignoring `props` with `withState`
@@ -74,7 +74,7 @@ const state = {
   }
 }
 
-mapStateToProps(state) // --> { item: 2 }
+mapStateToProps(state) // => { item: 2 }
 ```
 
 ## Configuring `combineSelectors` with `withProps`
@@ -100,5 +100,5 @@ const state = {
 }
 const ownProps = { type: 'oranges' }
 
-mapStateToProps(state, ownProps) // --> { item: 2 }
+mapStateToProps(state, ownProps) // => { item: 2 }
 ```

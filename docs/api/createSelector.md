@@ -1,4 +1,5 @@
-# `createSelector(...selectors, resultsFunc)` and `createSelector(string)`
+# `createSelector(path)`
+# `createSelector(...selectors, resultsFunc)`
 
 
 ## Basic Usage
@@ -24,6 +25,6 @@ const state = {
   }
 }
 
-selectOne(state) // --> 1
-selectTotal(state) // --> 3
+selectOne(state) // => 1
+selectTotal(state) // => 3
 ```

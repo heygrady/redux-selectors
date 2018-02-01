@@ -14,5 +14,5 @@ const selectTitle = createPropsSelector('title')
 const state = { title: 'marco' }
 const ownProps = { title: 'polo' }
 
-selectTitle(state, ownProps) // --> polo
+selectTitle(state, ownProps) // => polo
 ```

@@ -11,5 +11,5 @@ const state = {
   foo: 'bar'
 }
 
-mapStateToProps(state) // --> bar
+mapStateToProps(state) // => bar
 ```

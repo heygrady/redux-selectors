@@ -16,7 +16,7 @@ import { withArgs } from '@comfy/redux-selectors'
 const selectFoo = withArgs(key => state => state[key])
 
 const state = { foo: 'bar' }
-selectFoo('foo')(state) // --> bar
+selectFoo('foo')(state) // => bar
 ```
 
 **Note:** The above example does not benefit from memoization and could be better written as a plain function.
@@ -25,7 +25,7 @@ selectFoo('foo')(state) // --> bar
 const selectFoo = key => state => state[key]
 
 const state = { foo: 'bar' }
-selectFoo('foo')(state) // --> bar
+selectFoo('foo')(state) // => bar
 ```
 
 ## Advanced Usage
@@ -61,6 +61,6 @@ const state = {
   ]
 }
 
-selectOrangeById(3)(state) // --> { id: 3, size: 'small' }
-selectSizeById(3)(state)  // --> small
+selectOrangeById(3)(state) // => { id: 3, size: 'small' }
+selectSizeById(3)(state)  // => small
 ```

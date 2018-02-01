@@ -31,7 +31,7 @@ const state = {
   }
 }
 
-selectApple(state) // --> 1
+selectApple(state) // => 1
 ```
 
 ## Example usage: `selectRoot`
@@ -58,7 +58,7 @@ const state = {
   }
 }
 
-selectOranges(state) // --> 2
+selectOranges(state) // => 2
 ```
 
 ## Advanced Usage
@@ -107,7 +107,7 @@ const state = {
 const apple1 = selectAppleById(1)(state)
 const bigApples = selectApplesOfSize('big')(state)
 
-apple1 === bigApples[0] // --> true
-selectSize(apple1) // --> big
-selectSizeFromId(1)(state) // --> big
+apple1 === bigApples[0] // => true
+selectSize(apple1) // => big
+selectSizeFromId(1)(state) // => big
 ```
