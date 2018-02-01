@@ -3,9 +3,9 @@
 - [Read Me](/README.md)
 
 ### Usage
-- [Simple selectors](/docs/usage/simple-selectors.md)
+- [Path selectors](/docs/usage/path-selectors.md)
 - [Dependent selectors](/docs/usage/dependent-selectors.md)
-- [Selectors with args](/docs/usage/selectors-with-args.md)
+- [Configurable selectors](/docs/usage/configurable-selectors.md)
 - [With `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
 - [Composing selectors](/docs/usage/composing-selectors.md)
 - [Comparing with reselect](/docs/usage/comparing-with-reselect.md)

@@ -1,10 +1,12 @@
 # With `mapStateToProps`
 
-Typically, you use selectors to create props objects with a `mapStateToProps` function. This is a core feature of react-redux's `connect` function. Comfy redux-selectors has some helper functions that make it much easier to work with some of the peculiar edge cases of `mapStateToProps`.
+Typically, you use selectors to create props objects within a `mapStateToProps` function. This is a core feature of react-redux's `connect` function. Redux-selectors provides some helper functions that make it much easier to work with some of the peculiar edge cases of `mapStateToProps`.
 
 For these examples, we're going to be using a configurable selector, `selectApplesBySize` and a path selector, `selectName`. We'll be importing them into our examples. There are important differences in how you would work with both types of selectors.
 
 Notice that we're wrapping the inner selector in `withState` to prevent our inner selector from receiving the `props` argument.
+
+For each example below, we will be using the following selectors.
 
 ```js
 // selectors.js
@@ -106,10 +108,10 @@ mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name:
 
 ## Using `combineSelectors` and `withState` (alternative)
 
-Interestingly, `withState` can be used to wrap any type of selector. Here we're wrapping `selectName` in `withState` to prevent it from receiving a `props` argument. In this case that's not very useful because it's not a memoized selector. However, this pattern can be used to force a selector to memoize by state only, even when `combineSelectors` receives `ownProps`. This is useful in cases where some selectors require ownProps and other do not.
+Interestingly, `withState` can be used to wrap any type of selector. Here we're wrapping `selectName` in `withState` to prevent it from receiving a `props` argument. In this case that's not very useful because it's not a memoized selector. However, this pattern can be used to force a selector to memoize by state only, even when `combineSelectors` receives `ownProps`. This is useful in cases where some selectors require `ß` and other do not.
 
 ```js
-import { combineSelectors, withState } from '@comfy/redux-selectors'
+import { combineSelectors, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
 import { selectApplesBySize, selectName } from './selectors'
 
 const mapStateToProps = combineSelectors({
@@ -126,7 +128,7 @@ In cases where you are mixing configurable selectors with state selectors, you c
 
 Notice that we're defining a `creator` below. This is a configurable selector that accepts `props` on the first call and `state` on the second call. To drive the point home, we're wrapping `combineSelectors` with `withState` to ensure that it will only ever recompute when state changes.
 
-Notice below that we're manually defining `props` for each call to `mapStateToProps`. Technically these two calls will have different props, even though they have the same values. Fortunately, `withArgs` is memoized by the real value, rather than doing an object equality check. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
+Notice below that we're manually defining `props` for each call to `mapStateToProps`. Technically these are _different_ objects, even though they have the same values. Fortunately, `withArgs` is memoized by the real value, rather than doing an object equality check. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
 
 ```js
 import { combineSelectors, withArgs, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
@@ -144,7 +146,7 @@ mapStateToProps(state, { size: 'big' }) // memoized
 
 ## Wrapping `combineSelectors` in `withProps`
 
-If you want to use the props-creator pattern, you can save your self some trouble with `withProps`.
+If you want to use the props-creator pattern, you can save your self some trouble with `withProps`. It's the same as using `withArgs` as `USE_PROPS_AS_ARGS` as shown above.
 
 ```js
 import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'

@@ -1,5 +1,8 @@
 # Comfy Redux Selectors
-Standard API for creating memoized state selectors... very similar to [reselect](https://github.com/reactjs/reselect). If reselect is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
+
+This library provides a suite of composable functions that make it very easy to work with selectors... very similar to [reselect](https://github.com/reactjs/reselect). This library is intended to be used with redux.
+
+**Note:** If reselect is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
 
 In addition to everything reselect lets you do, redux-selectors allows you to:
 
@@ -17,6 +20,24 @@ yarn add @comfy/redux-selectors lodash.get redux
 - `createSelector` depends on `lodash.get`
 - `composeSelectors` depends on `compose` from redux
 
+## Getting started
+
+The main point of this library is to create selectors that will read from `state`. Here you can see an example of creating a "path selector" that will return the value of `state.fruit.apples`.
+
+```js
+import { createSelector } from '@comfy/redux-selectors'
+
+const selectApples = createSelector('fruit.apples')
+
+// ---
+
+const state = {
+  fruit: { apples: 1, oranges: 2 }
+}
+
+selectApples(state) // => 1
+```
+
 ## API
 
 See the [docs](/docs/) for more. Here are the key functions:
@@ -31,9 +52,13 @@ See the [docs](/docs/) for more. Here are the key functions:
 
 ## Usage Examples
 
-### Simple path selector
+### Path selectors
 
-Here you can see a path selector that uses lodash.get. Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from the state. The great benefit of using lodash.get is that it will return `undefined` (instead of throwing an error) if the state is not available.
+Here you can see a path selector. Under the hood, `createSelector(path)` uses `lodash.get` to return values from paths. The great benefit of using `lodash.get` is that it will return `undefined` (instead of throwing an error) if the state is not available.
+
+Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from `state`.
+
+You can read more about [path selectors](/docs/usage/path-selectors.md) in the docs.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
@@ -50,11 +75,11 @@ selectApples(state) // => 1
 ```
 
 - `selectApples` is a selector function that accepts `state` and returns a value
-- It is not memoized because it's faster to simply return the value from state
-- `createSelector(path)` is a convenience function for creating a selector that uses lodash.get
+- It is not memoized because it's faster to return the value from `state`
+- `createSelector(path)` is a convenience function for creating a selector that uses `lodash.get`
 - [lodash.get](https://lodash.com/docs/4.17.4#get) allows the `path` to be a string or an array (and so does `createSelector`).
 
-### Writing this yourself (with lodash.get)
+### Writing this yourself (with `lodash.get`)
 
 Here is an example of how to recreate what `createSelector` is doing. Using lodash.get, it's easy to select a value from the state.
 
@@ -106,7 +131,7 @@ Sometimes you need to pass configuration to selectors. The [`withArgs`](/docs/ap
 
 Reselect advises that the selector configuration should preferably [come from `props` or `state`](https://github.com/reactjs/reselect/blob/master/README.md#q-how-do-i-create-a-selector-that-takes-an-argument). However, inevitably you need to configure selectors to make them more reusable.
 
-There are many ways to create configurable selectors, you might enjoy reading more about creating [selectors with args](/docs/usage/selectors-with-args.md).
+There are many ways to create configurable selectors, you might enjoy reading more about creating [configurable selectors](/docs/usage/configurable-selectors.md).
 
 ```js
 import { createSelector, withArgs } from '@comfy/redux-selectors'

@@ -1,10 +1,14 @@
 # Dependent selectors
 
-Comfy redux-selectors allows you to compute values from dependent selectors. This same functionality is supported in reselect as well. Like reselect, you simply need to pass two or more functions to `createSelector`. The last function is treated as a "results function" while every other function is treated as a selector. The values from each dependent selector become the arguments for the results function.
+A dependent selector is a selector that computes a result from one or more selectors. This functionality is inspired by reselect. Like reselect, you simply need to pass two or more functions to [`createSelector`](/docs/api/createSelector), like `createSelector(...selectors, resultsFunc)`. The last function is treated as a "results function" while every other function is treated as a "dependent selector". The values from each dependent selector become the arguments for the results function.
 
-Unlike simple selectors, dependent selectors are memoized using [`memoizeSelector`](/docs/api/memoizeSelector.md). This means that the value returned from the results function is cached until the state changes.
+A results function receives the value from each dependent selector, like `resultsFunc(...results)`. You can see it in action below to make things more clear.
+
+Unlike path selectors, dependent selectors are memoized using [`memoizeSelector`](/docs/api/memoizeSelector.md). This means that the value returned from the results function is cached until the state changes. This can improve performance in cases where `state` seldom changes or when the dependent selectors are difficult to compute.
 
 For convenience, `createSelector` supports both functions and path strings. This enables you to easily create robust selectors on-the-fly if needed. Under the hood, each selector is passed thru [`createStateSelector`](/docs/api/createStateSelector.md) in order to transform path strings into functional selectors.
+
+Notice in the example below that you can use a mix of selectors and paths for your dependent selectors. The result of each selector is pass as an arg to the results function. You can see below that the results function receives `apples, oranges, peas, carrots`, one argument for each selector. Also notice how a path, `'veggies.peas'` is used to select `peas` and how an inline function is used to select `carrots`.
 
 ```js
 import { createSelector } '@comfy/redux-selectors'
@@ -71,4 +75,4 @@ const state = {
 selectTotal(state) // => 10
 ```
 
-*Next:* [selectors with args](/docs/usage/selectors-with-args.md)
+*Next:* [Configurable selectors](/docs/usage/configurable-selectors.md)
