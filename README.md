@@ -3,15 +3,10 @@ Standard API for creating memoized state selectors... very similar to [reselect]
 
 In addition to everything reselect lets you do, comfy redux-selectors allows you to:
 
-- Create curried selectors
-- Create selectors from a string
-- `combineSelectors` and `composeSelectors`
-
-### Important notes:
-
-- Comfy redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer (reselect [already allows this](https://github.com/reactjs/reselect/blob/master/README.md#createselectorcreatormemoize-memoizeoptions)). If you are targeting a browser that does not support `WeakMap`, you probably need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
-- Comfy redux-selectors allows you to create a selector from a simple selector string. Under the hood it uses `lodash.get`, which must be added as a peer dependency. A future version will (hopefully) make it easy to use either `lodash.get`, `lodash/get`, or your own get.
-- If you use `composeSelectors` you must have redux installed as a peer dependency. Under the hood, `composeSelectors` uses `compose` from redux.
+- Easily create selectors from a path string
+- Easily memoize dependent and complex selectors
+- Easily create configurable, curried selectors
+- Utility functions like `combineSelectors` and `composeSelectors`
 
 ## Installation
 
@@ -19,21 +14,26 @@ In addition to everything reselect lets you do, comfy redux-selectors allows you
 yarn add @comfy/redux-selectors lodash.get redux
 ```
 
+- `createSelector` depends on `lodash.get`
+- `composeSelectors` depends on `compose` from redux
+
 ## API
 
-- [`createSelector(...selectors, resultsFunc)` and `createSelector(string)`](/docs/api/createSelector.md)
-- [`withArgs((...args) => selector)`](/docs/api/withArgs.md)
-- [`combineSelectors(selectorMap)`](/docs/api/combineSelectors.md)
-- [`composeSelectors(...selectors)`](/docs/api/composeSelectors.md)
-- [`memoizeSelector(selector)`](/docs/api/memoizeSelector.md)
-- [`createStateSelector(selector)`](/docs/api/createStateSelector.md)
-- [`createPropsSelector(selector)`](/docs/api/createPropsSelector.md)
+See the [docs](/docs/) for more. Here are the key functions:
+
+- [`createSelector`](/docs/api/createSelector.md)
+- [`withArgs`](/docs/api/withArgs.md)
+- [`withProps`](/docs/api/withProps.md)
+- [`withState`](/docs/api/withState.md)
+- [`combineSelectors`](/docs/api/combineSelectors.md)
+- [`composeSelectors`](/docs/api/composeSelectors.md)
+- [`memoizeSelector`](/docs/api/memoizeSelector.md)
 
 ## Usage Examples
 
-### Simple text selector
+### Simple path selector
 
-Here you can see a simple selector that uses lodash.get to select a value from the state. Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from the state. The great benefit of using lodash.get is that it will return `undefined` (instead of throwing an error) if the state is not available.
+Here you can see a path selector that uses lodash.get. Notably, this selector isn't memoized. There isn't a need to memoize a selector that simply reads a value from the state. The great benefit of using lodash.get is that it will return `undefined` (instead of throwing an error) if the state is not available.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
@@ -51,9 +51,10 @@ selectApples(state) // --> 1
 
 - `selectApples` is a selector function that accepts state and returns a value
 - It is not memoized because it's faster to simply return the value from state
-- `createSelector` is a convenience function for creating a selector around lodash.get
+- `createSelector(path)` is a convenience function for creating a selector that uses lodash.get
+- [lodash.get](https://lodash.com/docs/4.17.4#get) allows the `path` to be a string or an array (and so does `createSelector`).
 
-### Writing this yourself
+### Writing this yourself (with lodash.get)
 
 Here is an example of how to recreate what `createSelector` is doing. Using lodash.get, it's easy to select a value from the state.
 
@@ -220,3 +221,9 @@ const state = {
 
 selectApples(state) // --> 1
 ```
+
+### Important notes:
+
+- redux-selectors uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) for the memoizer. A future version may allow you to specify your own memoizer ([reselect already allows this](https://github.com/reactjs/reselect/blob/master/README.md#createselectorcreatormemoize-memoizeoptions)). If you are targeting a browser that does not support `WeakMap`, you need to use a [polyfill](https://babeljs.io/docs/usage/polyfill/).
+- redux-selectors allows you to create a selector from a "path string". Under the hood it uses `lodash.get`, which _must be_ added as a peer dependency. A future version will (somehow?) make it easy to use either `lodash.get`, `lodash/get`, or your own `get`.
+- If you use `composeSelectors` you _must_ have redux installed as a peer dependency. Under the hood, `composeSelectors` uses `compose` from redux.

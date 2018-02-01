@@ -5,17 +5,15 @@ export const mapSelectorsToArgs = selectors => args =>
   selectors.map(selector => selector.apply(null, args))
 
 export const createStateSelector = selector => {
-  if (typeof selector === 'string') {
+  if (typeof selector === 'string' || Array.isArray(selector)) {
     return state => get(state, selector)
   }
   return selector
 }
 
 export const createPropsSelector = selector => {
-  if (typeof selector === 'string') {
-    return (_, props) => get(props, selector)
-  }
-  return (_, props) => selector(props)
+  const propSelector = createStateSelector(selector)
+  return (_, props) => propSelector(props)
 }
 
 const createSelector = (...selectors) => {
