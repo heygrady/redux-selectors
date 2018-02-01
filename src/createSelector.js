@@ -21,7 +21,7 @@ export const createPropsSelector = selector => {
 const createSelector = (...selectors) => {
   const length = selectors.length
   if (length > 1) {
-    const resultsFunc = selectors[length - 1]
+    const resultsFunc = createStateSelector(selectors[length - 1])
     const otherSelectors = selectors
       .slice(0, -1)
       .map(createStateSelector)

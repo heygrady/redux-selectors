@@ -86,7 +86,7 @@ mapStateToProps(state, ownProps) // --> { apples: [{ id: 1, size: 'big' }], name
 
 ## Using `combineSelectors` and `withState`
 
-Notice that you could rewrite the `mapStateToProps` function above using [`withState`](/docs/api/helpers/withState.md) and `combineSelectors`.  The trade-off is that we can no-longer rely on `ownProps` for configuration values.
+Notice that you could rewrite the `mapStateToProps` function above using [`withState`](/docs/api/withState.md) and `combineSelectors`.  The trade-off is that we can no-longer rely on `ownProps` for configuration values.
 
 Most functions in redux-selectors accept variable arguments, which causes react-redux to always pass `ownProps`. Under the hood, react-redux will inspect the function that you pass and cache it differently based on the number of arguments it accepts. In order to rely strictly on `state` and ignore `ownProps`, you can use `withState`, which simply returns a function that accepts _only_ a `state` argument. This can lead to a performance improvement in cases where your `state` is very stable and `ownProps` changes often.
 
