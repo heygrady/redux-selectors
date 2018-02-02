@@ -4,7 +4,7 @@ Used internally by `createSelector` and `combineSelectors` for memoizing a selec
 
 ## Basic usage
 
-`memoizeSelector` expects to receive function. It returns a selector that will memoize return values based on the provided arguments. Each argument provided to your selector must be a valid `WeakMap` key. The most common arguments a selector will receive are `state` and `ownProps`. However, you may pass an infinite number of valid arguments. You will likely see some performance issues if you have selectors with many thousands of arguments, so don't do that.
+`memoizeSelector` expects to receive selector function. It returns a selector that will memoize return values based on the provided arguments. Each argument provided to your selector must be a valid `WeakMap` key. The most common arguments a selector will receive are `state` and `ownProps`. However, you may pass an infinite number of valid arguments. You will likely see some performance issues if you have selectors with many thousands of arguments (ha ha), so don't do that.
 
 In the example below we're memoizing a simple selector. Normally you would only memoize a selector that contained a loop of some sort. If you are using `createSelector` with a results function, or if you are using `combineSelectors`, your selector is already being memoized. You might rarely need to manually memoize selectors.
 

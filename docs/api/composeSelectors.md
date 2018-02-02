@@ -1,6 +1,6 @@
 # `composeSelectors(...selectors)`
 
-`composeSelectors` is based on redux's [`compose`](https://github.com/reactjs/redux/blob/master/docs/api/compose.md) function. If you don't use `composeSelectors`, redux is not a required peer dependency.
+Composing selectors means feed the value from one selector into another selector. `composeSelectors` is based on redux's [`compose`](https://github.com/reactjs/redux/blob/master/docs/api/compose.md) function. If you don't use `composeSelectors`, redux is not a required peer dependency.
 
 **Note:** Comfy redux-selectors composes selectors left to right. Redux's `compose` function goes right to left.
 
@@ -8,7 +8,7 @@
 
 `composeSelectors` accepts a list of selectors as arguments. The result of each selector is "fed forward" into the next selector. Typically compose functions run right-to-left. However, redux-selectors composes left-to-right in order to make the composed functions more readable as a sentence.
 
-Notice that you can supply a mix of string and functional selectors. Each selector is passed through [`createStateSelector`](/docs/api/createStateSelector.md) before being executed.
+Notice that you can supply a mix of path and functional selectors. Each selector is passed through [`createStateSelector`](/docs/api/createStateSelector.md) before being executed.
 
 ```js
 import { composeSelectors } from '@comfy/redux-selectors'

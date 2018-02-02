@@ -4,6 +4,8 @@ Convenience function for creating a selector that ignores it's first property an
 
 ## Basic Example
 
+In the example below, you can see that the selector completely ignores `state` and instead reads values from `ownProps`.
+
 ```js
 import { createPropsSelector } from '@comfy/redux-selectors'
 

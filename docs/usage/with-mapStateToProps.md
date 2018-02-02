@@ -124,11 +124,11 @@ mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name:
 
 ## Wrapping `combineSelectors` in a creator
 
-In cases where you are mixing configurable selectors with state selectors, you can also use a creator to improve memoization. If you wrap `combineSelectors` in a function as shown below, react-redux will recompute your selector every time `state` and `ownProps` are changed. However, our inner selector only needs to be recomputed when `state` changes. This means that we will benefit from wrapping our combined selector with `withArgs`.
+In cases where you are mixing configurable selectors with state selectors, you can also use a creator to improve memoization. If you wrap `combineSelectors` in a function as shown below, react-redux will recompute your selector every time `state` and `ownProps` are changed. However, some of our inner selectors only need to be recomputed when `state` changes. This means that we will benefit from wrapping our combined selector with `withArgs`.
 
 Notice that we're defining a `creator` below. This is a configurable selector that accepts `props` on the first call and `state` on the second call. To drive the point home, we're wrapping `combineSelectors` with `withState` to ensure that it will only ever recompute when state changes.
 
-Notice below that we're manually defining `props` for each call to `mapStateToProps`. Technically these are _different_ objects, even though they have the same values. Fortunately, `withArgs` is memoized by the real value, rather than doing an object equality check. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
+Also notice below that we're redefining `ownProps` for each call to `mapStateToProps`. Technically these are _different_ objects. Normally, `memoizeSelector` will recompute your selector when it sees different objects, even though they have the same values. Fortunately, `withArgs` is memoized by the _real value_ rather than checking object equality. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
 
 ```js
 import { combineSelectors, withArgs, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
@@ -139,14 +139,15 @@ const creator = withArgs(props => withState(combineSelectors({
 })))
 
 const mapStateToProps = creator(USE_PROPS_AS_ARGS)
+const ownProps = { size: 'big' }
 
-mapStateToProps(state, { size: 'big' }) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
-mapStateToProps(state, { size: 'big' }) // memoized
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, { ...ownProps }) // memoized
 ```
 
 ## Wrapping `combineSelectors` in `withProps`
 
-If you want to use the props-creator pattern, you can save your self some trouble with `withProps`. It's the same as using `withArgs` as `USE_PROPS_AS_ARGS` as shown above.
+If you want to use the props-creator pattern shown in the previous example, you can save your self some trouble and use `withProps`. It's the same as using `withArgs` with `USE_PROPS_AS_ARGS` as shown above. Under the hood, `withArgs` simply wraps itself in `withProps` when you configure it with `USE_PROPS_AS_ARGS`.
 
 ```js
 import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'
@@ -155,7 +156,8 @@ const mapStateToProps = withProps(props => withState(combineSelectors({
   apples: selectApplesBySize(props.size),
   name: selectName
 })))
+const ownProps = { size: 'big' }
 
-mapStateToProps(state, { size: 'big' }) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
-mapStateToProps(state, { size: 'big' }) // memoized
+mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
+mapStateToProps(state, { ...ownProps }) // memoized
 ```

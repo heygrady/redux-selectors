@@ -1,8 +1,8 @@
 # `withArgs(selectorCreator)`
 
-This is a convenience method for creating configurable curried selectors. Configurable selectors can accept arguments that affect the return value. For example, imagine a generic selector that can return an object based on an ID.
+This is a convenience method for creating configurable selectors. Configurable selectors can accept arguments that affect the return value. For example, imagine a generic selector that can return an object based on an ID.
 
-In order to smooth over some of the pain of creating curried selectors, redux-selectors provides `withArgs`. It is a memoized wrapper that allows you to provide a selector creator function that accepts arguments and returns a selector. Under the hood, `withArgs` simply memoizes the selectors the provided `selectorCreator` returns for the given `args`.
+It is a memoized wrapper that allows you to provide a selector creator function that accepts arguments and returns a selector. Under the hood, `withArgs` simply memoizes the selectors the provided `selectorCreator` returns for the given `args`.
 
 You may wish to [compare `withArgs` to reselect](/docs/usage/comparing-with-reselect.md)
 
