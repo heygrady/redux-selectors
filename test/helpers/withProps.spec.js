@@ -4,9 +4,7 @@ import combineSelectors from '../../src/combineSelectors'
 
 describe('redux-selectors', () => {
   describe('mapSelectorsToProps', () => {
-    beforeEach(() => {
-
-    })
+    beforeEach(() => {})
     it('returns an empty array with no selectors', () => {
       const selectors = []
       const props = [{ one: 1 }]
@@ -59,10 +57,12 @@ describe('redux-selectors', () => {
         foo: 'bar'
       }
       ownProps = { id: 1 }
-      mapStateToProps = withProps(props => combineSelectors({
-        item: state => state.foo,
-        id: state => props.id
-      }))
+      mapStateToProps = withProps(props =>
+        combineSelectors({
+          item: state => state.foo,
+          id: state => props.id
+        })
+      )
     })
     it('returns the correct value', () => {
       const result = mapStateToProps(state, ownProps)
@@ -76,11 +76,13 @@ describe('redux-selectors', () => {
           foo: 1
         }
         ownProps = { plus: 10, minus: 2, times: 3 }
-        makeSelector = (...propSelectors) => withProps((plus = 0, minus = 0, times = 1) => state => (
-          (state.foo + plus - minus) * times
-        ), ...propSelectors)
+        makeSelector = (...propSelectors) =>
+          withProps(
+            (plus = 0, minus = 0, times = 1) => state =>
+              (state.foo + plus - minus) * times,
+            ...propSelectors
+          )
       })
-
       it('passes props as first arg without propSelectors', () => {
         const selector = makeSelector()
         const extra = { ...ownProps }

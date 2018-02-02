@@ -1,5 +1,7 @@
 # `withState(...selectors)`
 
+Helper function that wraps a selector to ensure that it only ever receives `state`.
+
 ```js
 import { withState, combineSelectors } from '@comfy/redux-selectors'
 

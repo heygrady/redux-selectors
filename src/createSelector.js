@@ -20,9 +20,7 @@ const createSelector = (...selectors) => {
   const length = selectors.length
   if (length > 1) {
     const resultsFunc = createStateSelector(selectors[length - 1])
-    const otherSelectors = selectors
-      .slice(0, -1)
-      .map(createStateSelector)
+    const otherSelectors = selectors.slice(0, -1).map(createStateSelector)
     return memoizeSelector((...args) => {
       const values = mapSelectorsToArgs(otherSelectors)(args)
       return resultsFunc.apply(null, values)

@@ -2,7 +2,7 @@ import createSelector, {
   createStateSelector,
   createPropsSelector
 } from './createSelector'
-import withArgs, { USE_PROPS_AS_ARGS } from './withArgs'
+import withOptions, { filterState } from './withOptions'
 import withProps from './helpers/withProps'
 import withState from './helpers/withState'
 import combineSelectors from './combineSelectors'
@@ -13,11 +13,11 @@ export {
   createSelector,
   createStateSelector,
   createPropsSelector,
-  withArgs,
+  withOptions,
   withProps,
   withState,
   combineSelectors,
   composeSelectors,
   memoizeSelector,
-  USE_PROPS_AS_ARGS
+  filterState
 }

@@ -86,7 +86,7 @@ mapStateToProps(state) // => { item: 2 }
 
 ## Configuring `combineSelectors` with `withProps`
 
-When you need to configure a selector based on `ownProps`, you can use [`withProps`](/docs/api/withProps.md). This is useful for times when you want to use configuration from `ownProps` to create your selectors, for instance, if you are using a configurable selector created by [`withArgs`](/docs/api/withArgs.md). Below you can see that the fruit selector will change based on the props that are passed.
+When you need to configure a selector based on `ownProps`, you can use [`withProps`](/docs/api/withProps.md). This is useful for times when you want to use configuration from `ownProps` to create your selectors, for instance, if you are using a configurable selector created by [`withOptions`](/docs/api/withOptions.md). Below you can see that the fruit selector will change based on the props that are passed.
 
 ```js
 import { combineSelectors, withProps } from '@comfy/redux-selectors'

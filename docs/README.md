@@ -12,7 +12,7 @@
 
 ### API
 - [createSelector](/docs/api/createSelector.md)
-- [withArgs](/docs/api/withArgs.md)
+- [withOptions](/docs/api/withOptions.md)
 - [withProps](/docs/api/withProps.md)
 - [withState](/docs/api/withState.md)
 - [combineSelectors](/docs/api/combineSelectors.md)

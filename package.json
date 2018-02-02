@@ -1,6 +1,6 @@
 {
   "name": "@comfy/redux-selectors",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Redux selectors",
   "main": "lib/redux-selectors.js",
   "module": "es/redux-selectors.js",
@@ -29,7 +29,7 @@
     "examples:test": "cross-env CI=true babel-node examples/testAll.js",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:prepare && gitbook build -g heygrady/redux-selectors && cp logo/apple-touch-icon.png _book/gitbook/images/apple-touch-icon-precomposed-152.png && cp logo/favicon.ico _book/gitbook/images",
+    "docs:build": "npm run docs:prepare && gitbook build -g heygrady/redux-selectors",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:heygrady/redux-selectors gh-pages --force"
   },

@@ -1,7 +1,10 @@
+const KEY_MARKER = '@@comfy/redux-selectors/createKeyMap/KEY_MARKER'
+const UNDEFINED_STATE = '@@comfy/redux-selectors/createKeyMap/UNDEFINED_STATE'
+
 export const createKeyMap = () => {
   const keyCache = new WeakMap()
-  const keyMarker = {}
-  const undefinedState = {}
+  const keyMarker = { KEY_MARKER }
+  const undefinedState = { UNDEFINED_STATE }
 
   return args => {
     const lastIndex = args.length - 1
@@ -15,12 +18,13 @@ export const createKeyMap = () => {
       if (!map.has(arg)) {
         const nestedMap = new WeakMap()
         map.set(arg, nestedMap)
-        if (i === lastIndex) {
-          nestedMap.set(keyMarker, new WeakSet(args))
-        }
       }
       if (i === lastIndex) {
-        return map.get(arg).get(keyMarker)
+        const nestedMap = map.get(arg)
+        if (!nestedMap.has(keyMarker)) {
+          nestedMap.set(keyMarker, new WeakSet(args))
+        }
+        return nestedMap.get(keyMarker)
       }
       return map.get(arg)
     }, keyCache)

@@ -4,19 +4,19 @@ Typically, you use selectors to create props objects within a `mapStateToProps` 
 
 For these examples, we're going to be using a configurable selector, `selectApplesBySize` and a path selector, `selectName`. We'll be importing them into our examples. There are important differences in how you would work with both types of selectors.
 
-Notice that we're wrapping the inner selector in `withState` to prevent our inner selector from receiving the `props` argument.
+Notice that we're passing `filterState` as the second argument to `withOptions`. This will prevent our inner selector from receiving the `props` argument, which is a benefit to memoization.
 
 For each example below, we will be using the following selectors.
 
 ```js
 // selectors.js
 
-import { createSelector, withArgs, withState } from '@comfy/redux-selectors'
+import { createSelector, withOptions, filterState } from '@comfy/redux-selectors'
 
-export const selectApplesBySize = withArgs(size => withState(createSelector(
+export const selectApplesBySize = withOptions(size => createSelector(
   'fruit.apples',
   apples => apples.filter(apple => apple.size === size)
-)))
+)), filterState)
 
 export const selectName = createSelector('app.currentUser.name')
 ```
@@ -70,22 +70,6 @@ const mapStateToProps = combineSelectors({
 mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
-## Using `combineSelectors` and `USE_PROPS_AS_ARGS`
-
-With configurable selectors you can pass `USE_PROPS_AS_ARGS` as your configuration, which instructs the selector to use the `props` argument as the configuration. Here we're passing a second argument that will select only the interesting values from `props`. In our case, we only want the `size` prop. If we didn't add this `'size'` selector then `selectApplesBySize` would receive the entire `ownProps` object as its configuration.
-
-```js
-import { combineSelectors, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
-import { selectApplesBySize, selectName } from './selectors'
-
-const mapStateToProps = combineSelectors({
-  apples: selectApplesBySize(USE_PROPS_AS_ARGS, 'size'),
-  name: selectName
-})
-
-mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
-```
-
 ## Using `combineSelectors` and `withState`
 
 Notice that you could rewrite the `mapStateToProps` function above using [`withState`](/docs/api/withState.md) and `combineSelectors`.  The trade-off is that we can no-longer rely on `ownProps` for configuration values.
@@ -106,57 +90,39 @@ const mapStateToProps = withState(combineSelectors({
 mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
-## Using `combineSelectors` and `withState` (alternative)
+## Using `combineSelectors` and `withState` and `withProps`
 
-Interestingly, `withState` can be used to wrap any type of selector. Here we're wrapping `selectName` in `withState` to prevent it from receiving a `props` argument. In this case that's not very useful because it's not a memoized selector. However, this pattern can be used to force a selector to memoize by state only, even when `combineSelectors` receives `ownProps`. This is useful in cases where some selectors require `ß` and other do not.
+Interestingly, `withState` can be used to wrap any type of selector. Here we're wrapping `selectName` in `withState` to prevent it from receiving a `props` argument. In this case that's not very useful because it's not a memoized selector. However, this pattern can be used to force a selector to memoize by state only, even when `combineSelectors` receives `ownProps`. This is useful in cases where some selectors require `ownProps` and other do not.
+
+We're also wrapping `selectApplesBySize` in `withProps` to tell it to get its configuration from props instead. You can see that we're passing a `'size'` selector to tell `withProps` to pass only the `size` value from `ownProps`.
 
 ```js
-import { combineSelectors, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
+import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'
 import { selectApplesBySize, selectName } from './selectors'
 
 const mapStateToProps = combineSelectors({
-  apples: selectApplesBySize(USE_PROPS_AS_ARGS, 'size'),
+  apples: withProps(selectApplesBySize, 'size'),
   name: withState(selectName)
 })
 
 mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 ```
 
-## Wrapping `combineSelectors` in a creator
-
-In cases where you are mixing configurable selectors with state selectors, you can also use a creator to improve memoization. If you wrap `combineSelectors` in a function as shown below, react-redux will recompute your selector every time `state` and `ownProps` are changed. However, some of our inner selectors only need to be recomputed when `state` changes. This means that we will benefit from wrapping our combined selector with `withArgs`.
-
-Notice that we're defining a `creator` below. This is a configurable selector that accepts `props` on the first call and `state` on the second call. To drive the point home, we're wrapping `combineSelectors` with `withState` to ensure that it will only ever recompute when state changes.
-
-Also notice below that we're redefining `ownProps` for each call to `mapStateToProps`. Technically these are _different_ objects. Normally, `memoizeSelector` will recompute your selector when it sees different objects, even though they have the same values. Fortunately, `withArgs` is memoized by the _real value_ rather than checking object equality. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
-
-```js
-import { combineSelectors, withArgs, withState, USE_PROPS_AS_ARGS } from '@comfy/redux-selectors'
-
-const creator = withArgs(props => withState(combineSelectors({
-  apples: selectApplesBySize(props.size),
-  name: selectName
-})))
-
-const mapStateToProps = creator(USE_PROPS_AS_ARGS)
-const ownProps = { size: 'big' }
-
-mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
-mapStateToProps(state, { ...ownProps }) // memoized
-```
-
 ## Wrapping `combineSelectors` in `withProps`
 
-If you want to use the props-creator pattern shown in the previous example, you can save your self some trouble and use `withProps`. It's the same as using `withArgs` with `USE_PROPS_AS_ARGS` as shown above. Under the hood, `withArgs` simply wraps itself in `withProps` when you configure it with `USE_PROPS_AS_ARGS`.
+In cases where you are mixing configurable selectors with state selectors, you can improve memoization if you wrap `combineSelectors` with `withProps` as shown below. React-redux will recompute your selector every time `state` and `ownProps` are changed. However, our inner selectors only need to be recomputed when `state` changes. Using `withProps` allows us to have more control over when our selectors need to recompute.
+
+Also notice below that we're redefining `ownProps` for each call to `mapStateToProps`. Technically these are _different_ objects. Normally, `memoizeSelector` will recompute your selector when it sees different objects, even though they have the same values. Fortunately, `withProps` is memoized by the _real value_ rather than checking object equality. With this setup, your selector will avoid being recomputed in cases where `state` is the same and `ownProps` is technically a different object but has the same values.
+
+If you want to use the props-creator pattern shown in the previous example, you can save your self some trouble and use `withProps`.
 
 ```js
-import { combineSelectors, withProps, withState } from '@comfy/redux-selectors'
+import { combineSelectors, withProps } from '@comfy/redux-selectors'
 
-const mapStateToProps = withProps(props => withState(combineSelectors({
+const mapStateToProps = withProps(props => combineSelectors({
   apples: selectApplesBySize(props.size),
   name: selectName
-})))
-const ownProps = { size: 'big' }
+}))
 
 mapStateToProps(state, ownProps) // => { apples: [{ id: 1, size: 'big' }], name: 'Buddy' }
 mapStateToProps(state, { ...ownProps }) // memoized

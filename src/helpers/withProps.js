@@ -1,5 +1,5 @@
 import { createStateSelector } from '../createSelector'
-import withArgs from '../withArgs'
+import withOptions, { filterState } from './withOptions'
 
 export const mapSelectorsToProps = selectors => props =>
   selectors.map((selector, i) => {
@@ -8,7 +8,7 @@ export const mapSelectorsToProps = selectors => props =>
   })
 
 const withProps = (selectorCreator, ...propSelectors) => {
-  const creator = withArgs(selectorCreator)
+  const creator = withOptions(selectorCreator, filterState)
   const hasPropSelectors = propSelectors.length > 0
   let applyProps
   if (hasPropSelectors) {

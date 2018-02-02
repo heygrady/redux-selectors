@@ -43,7 +43,7 @@ selectApples(state) // => 1
 See the [docs](/docs/) for more. Here are the key functions:
 
 - [`createSelector(path)`](/docs/api/createSelector.md)
-- [`withArgs(creator)`](/docs/api/withArgs.md)
+- [`withOptions(creator)`](/docs/api/withOptions.md)
 - [`withProps(creator)`](/docs/api/withProps.md)
 - [`withState(selector)`](/docs/api/withState.md)
 - [`combineSelectors(selectorMap)`](/docs/api/combineSelectors.md)
@@ -125,19 +125,19 @@ const state = {
 selectTotal(state) // => 10
 ```
 
-### Creating selectors with arguments
+### Creating configurable selectors
 
-Sometimes you need to pass configuration to selectors. The [`withArgs`](/docs/api/withArgs.md) function makes it easy to create a configurable, curried, composable selector.
+Sometimes you need to pass configuration to selectors. The [`withOptions`](/docs/api/withOptions.md) function makes it easy to create a configurable, curried, composable selector.
 
 Reselect advises that the selector configuration should preferably [come from `props` or `state`](https://github.com/reactjs/reselect/blob/master/README.md#q-how-do-i-create-a-selector-that-takes-an-argument). However, inevitably you need to configure selectors to make them more reusable.
 
 There are many ways to create configurable selectors, you might enjoy reading more about creating [configurable selectors](/docs/usage/configurable-selectors.md).
 
 ```js
-import { createSelector, withArgs } from '@comfy/redux-selectors'
+import { createSelector, withOptions } from '@comfy/redux-selectors'
 import { selectTotal } from './selectors' // see previous example
 
-export const selectTotalPlus = withArgs((plus = 0, minus = 0) => createSelector(
+export const selectTotalPlus = withOptions((plus = 0, minus = 0) => createSelector(
   selectTotal,
   total => total + plus - minus
 ))
@@ -151,9 +151,9 @@ const state = {
 selectTotalPlus(2, 3)(state) // => 9
 ```
 
-### Combining selectors (to use with mapStateToProps)
+### Combining selectors (to use with `mapStateToProps`)
 
-Sometimes you need to combine several selectors into a "props object". A classic case would be `mapStateToProps` argument for react-redux's [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) function.
+Sometimes you need to combine several selectors into a "props object". A classic case would be a `mapStateToProps` argument for react-redux's [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) function.
 
 Notice how we use `ownProps` to configure `selectTotalPlus`. You might prefer to use [`withProps`](/docs/api/withProps.md) or read about advanced usage [with `mapStateToProps`](/docs/usage/with-mapStateToProps.md)
 

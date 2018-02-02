@@ -41,7 +41,7 @@ Commonly, your selectors are dependent on the location of the `rootReducer` in t
 Using `selectRoot` is a huge benefit for refactoring code. This pattern enables you to change only a single function in the event that a reducer is relocated in the state.
 
 ```js
-import { createSelector, composeSelectors, withArgs } from '@comfy/redux-selectors'
+import { createSelector, composeSelectors } from '@comfy/redux-selectors'
 
 export const selectRoot = createSelector('department.produce') // <-- root selector
 export const selectFruit = composeSelectors(selectRoot, 'fruit') // <-- composes left to right
@@ -70,20 +70,20 @@ Both `selectAppleById` and `selectApplesOfSize` demonstrate selectively memoizin
 You can also notice the usage of "object selectors" that expect to read from an object instead of the whole state. Below you can see that `selectSize` will blindly read the `size` from any object it receives. You can see it used in both `selectApplesOfSize` and `selectSizeFromId` to read the size of an apple.
 
 ```js
-import { createSelector, withArgs, composeSelectors, memoizeSelector } from '@comfy/redux-selectors'
+import { createSelector, withOptions, composeSelectors, memoizeSelector } from '@comfy/redux-selectors'
 
 const selectRoot = createSelector('department.produce')
 export const selectFruit = composeSelectors(selectRoot, 'fruit')
 const selectApples = composeSelectors(selectFruit, 'apples')
-const selectAppleById = withArgs(id => composeSelectors(
+const selectAppleById = withOptions(id => composeSelectors(
   selectApples,
   memoizeSelector(apples => apples.find(apple => selectId(apple) === id))  
 ))
-const selectApplesOfSize = withArgs(size => composeSelectors(
+const selectApplesOfSize = withOptions(size => composeSelectors(
   selectApples,
   memoizeSelector(apples => apples.filter(apple => selectSize(apple) === size))  
 ))
-const selectSizeFromId = withArgs(id => composeSelectors(
+const selectSizeFromId = withOptions(id => composeSelectors(
   selectAppleById(id),
   selectSize
 ))
