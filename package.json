@@ -1,6 +1,6 @@
 {
   "name": "@comfy/redux-selectors",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Redux selectors",
   "main": "lib/redux-selectors.js",
   "module": "es/redux-selectors.js",

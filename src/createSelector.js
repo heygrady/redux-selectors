@@ -16,15 +16,20 @@ export const createPropsSelector = selector => {
   return (_, props) => propSelector(props)
 }
 
+const createDependentSelector = selectors => {
+  selectors = selectors.map(createStateSelector)
+  const resultsFunc = selectors[selectors.length - 1]
+  selectors = selectors.slice(0, -1)
+  const mapArgs = mapSelectorsToArgs(selectors)
+  return memoizeSelector((...selectorArgs) => {
+    const values = mapArgs(selectorArgs)
+    return resultsFunc.apply(null, values)
+  })
+}
+
 const createSelector = (...selectors) => {
-  const length = selectors.length
-  if (length > 1) {
-    const resultsFunc = createStateSelector(selectors[length - 1])
-    const otherSelectors = selectors.slice(0, -1).map(createStateSelector)
-    return memoizeSelector((...args) => {
-      const values = mapSelectorsToArgs(otherSelectors)(args)
-      return resultsFunc.apply(null, values)
-    })
+  if (selectors.length > 1) {
+    return createDependentSelector(selectors)
   }
   return createStateSelector(selectors[0])
 }

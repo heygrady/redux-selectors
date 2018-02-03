@@ -2,7 +2,7 @@ import createSelector, {
   createStateSelector,
   createPropsSelector
 } from './createSelector'
-import withOptions, { filterState } from './withOptions'
+import withOptions, { filterState } from './helpers/withOptions'
 import withProps from './helpers/withProps'
 import withState from './helpers/withState'
 import combineSelectors from './combineSelectors'

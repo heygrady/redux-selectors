@@ -94,7 +94,7 @@ Path selectors are not memoized.
 import { createSelector } from '@comfy/redux-selectors'
 
 const selectFirstApple = createSelector('department.produce.fruit.apples[0]')
-const selectFirstPotato = createSelector(['department', 'produce', 'veggies', 'potatoes', 0)
+const selectFirstPotato = createSelector(['department', 'produce', 'veggies', 'potatoes', 0])
 
 selectFirstApple(state) // => { id: 1, size: 'big' }
 selectFirstPotato(state) // => { id: 3, size: 'small' }
@@ -143,7 +143,7 @@ import { composeSelectors, createSelector, withOptions } from '@comfy/redux-sele
 const selectApples = createSelector('department.produce.fruit.apples')
 const selectAppleById = withOptions(id => composeSelectors(
   selectApples,
-  apples => apples.filter(apple => apple.id === id)
+  apples => apples.find(apple => apple.id === id)
 ))
 
 selectAppleById(id)(state) // => { id: 1, size: 'big' }
@@ -162,10 +162,28 @@ const selectFruit = createSelector('department.produce.fruit')
 const selectFruitById = withProps(props => composeSelectors(
   selectFruit,
   props.type,
-  items => items.filter(item => item.id === props.id)
+  items => items.find(item => item.id === props.id)
 ))
 
 selectFruitById(state, ownProps) // => { id: 1, size: 'big' }
+```
+
+### Configurable selector: using `state`
+
+```js
+const selectSizeFilter = createSelector('filter.size')
+const selectApples = createSelector('department.produce.fruit.apples')
+const selectApplesBySize = withOptions(size => composeSelectors(
+  selectApples,
+  apples => apples.filter(apple => apple.size === size)
+))
+const selectApplesByFilter = state => composeSelectors(
+  selectSizeFilter,
+  selectApplesBySize,
+  selectFilteredApples => selectFilteredApples(state)
+)(state)
+
+selectApplesByFilter(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Using `mapStateToProps` and `withProps(creator)`
@@ -180,14 +198,14 @@ import { composeSelectors, createSelector, withOptions, withProps } from '@comfy
 const selectApples = createSelector('department.produce.fruit.apples')
 const selectAppleById = withOptions(id => composeSelectors(
   selectApples,
-  apples => apples.filter(apple => apple.id === id)
+  apples => apples.find(apple => apple.id === id)
 ))
 
 const mapStateToProps = withProps(props => combineSelectors({
   apple: selectAppleById(props.id)
 }))
 
-mapStateToProps(state, ownProps) // => { apple: { id: 1, size: 'big'} }
+mapStateToProps(state, ownProps) // => { apple: { id: 1, size: 'big' } }
 ```
 
 ### Using `mapStateToProps` and `withState(selector)`
@@ -202,14 +220,14 @@ import { withState } from '@comfy/redux-selectors'
 const selectApples = createSelector('department.produce.fruit.apples')
 const selectAppleById = withOptions(id => composeSelectors(
   selectApples,
-  apples => apples.filter(apple => apple.id === id)
+  apples => apples.find(apple => apple.id === id)
 ))
 
 const mapStateToProps = withState(combineSelectors({
   apple: selectAppleById(1)
 }))
 
-mapStateToProps(state, ownProps) // => { apple: { id: 1, size: 'big'} }
+mapStateToProps(state, ownProps) // => { apple: { id: 1, size: 'big' } }
 ```
 
 ### Combining selectors: `combineSelectors(selectorMap)`
@@ -223,7 +241,7 @@ const selectFruit = createSelector('department.produce.fruit')
 const selectFruitById = withProps(props => composeSelectors(
   selectFruit,
   props.type,
-  items => items.filter(items => items.id === props.id)
+  items => items.find(items => items.id === props.id)
 ))
 const selectFruitSize = composeSelectors(
   selectFruitById,
@@ -242,17 +260,17 @@ mapStateToProps(state, ownProps) // => { size: 'big' }
 You can read more about [composing selectors](/docs/usage/composing-selectors.md) in the docs.
 
 ```js
-import { composeSelectors, createSelector, withOptions, withProps } from '@comfy/redux-selectors'
+import { composeSelectors, createSelector, withOptions, withProps, withState } from '@comfy/redux-selectors'
 
 const selectProduce = createSelector('department.produce')
 const selectFruit = composeSelectors(selectProduce, 'fruit')
 const selectApples = composeSelectors(selectFruit, 'apples')
 const selectAppleById = withOptions(id => composeSelectors(
   selectApples,
-  apples => apples.filter(apple => apple.id === props.id)
+  apples => apples.find(apple => apple.id === id)
 ))
 const selectFruitSize = withProps(props => composeSelectors(
-  selectAppleById(props.id),
+  withState(selectAppleById(props.id)),
   'size'
 ))
 
