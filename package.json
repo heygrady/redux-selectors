@@ -1,6 +1,6 @@
 {
   "name": "@comfy/redux-selectors",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Redux selectors",
   "main": "lib/redux-selectors.js",
   "module": "es/redux-selectors.js",
@@ -48,7 +48,7 @@
   "bugs": {
     "url": "https://github.com/heygrady/redux-selectors/issues"
   },
-  "homepage": "http://redux-selectors.js.org",
+  "homepage": "https://heygrady.github.io/redux-selectors/",
   "dependencies": {
     "loose-envify": "^1.1.0",
     "symbol-observable": "^1.0.3"
