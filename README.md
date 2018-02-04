@@ -40,8 +40,9 @@ selectApples(state) // => 1
 
 ## API
 
-Docs: https://heygrady.github.io/redux-selectors/
-Github Docs: https://github.com/heygrady/redux-selectors/tree/master/docs
+Docs:
+- https://heygrady.github.io/redux-selectors/
+- https://github.com/heygrady/redux-selectors/tree/master/docs
 
 Here are the key functions:
 
