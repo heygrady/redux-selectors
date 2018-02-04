@@ -97,7 +97,7 @@ const state = {
     produce: {
       fruit: {
         apples: [
-          { id: 1, type: 'apple', attributes: { size: 'big' } }
+          { id: 1, attributes: { size: 'big' } }
         ]
       }  
     }

@@ -63,5 +63,15 @@ describe('redux-selectors', () => {
       expect(creator).toHaveBeenCalledTimes(2)
       expect(result).toBe('whoops!')
     })
+    it.skip('performance test', () => {
+      let n = 0
+      const randomInt = max => Math.floor(Math.random() * Math.floor(max))
+      while (n < 5000) {
+        n++
+        selector({ foo: (n + randomInt(50) - randomInt(50)) % 500 })(state, ownProps)
+      }
+      expect(inner).toHaveBeenCalledTimes(2)
+      expect(creator).toHaveBeenCalledTimes(2)
+    })
   })
 })

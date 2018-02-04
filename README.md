@@ -1,13 +1,13 @@
 # Comfy Redux Selectors
 
-A suite of composable functions that make it very easy to work with selectors. This library is intended to be used with redux.
+A suite of composable functions that make it very easy to work with selectors. This library is intended to be used with redux but it works for any situation where you need to read values from structured objects.
 
 Redux-selectors allows you to:
 
 - Easily create selectors from a path string
-- Easily memoize dependent and complex selectors
+- Easily memoize dependent selectors
 - Easily create configurable selectors
-- Plus: utility functions like [`combineSelectors`](/docs/api/combineSelectors.md) and [`composeSelectors`](/docs/api/composeSelectors.md)
+- Plus: utility functions like [`combineSelectors`](/docs/api/combineSelectors.md) and [`composeSelectors`](/docs/api/composeSelectors.md) make it easy to stitch selectors together
 
 **Note:** If [reselect](https://github.com/reactjs/reselect) is working for you, keep using it. If you find yourself commonly bumping in "missing features" in reselect, keep reading.
 
@@ -50,15 +50,11 @@ Here are the key functions:
 - [`composeSelectors(...selectors)`](/docs/api/composeSelectors.md)
 - [`memoizeSelector(selector)`](/docs/api/memoizeSelector.md)
 
-## Docs
-
-You might like to read the [docs](/docs/).
-
 ## Examples
 
 For each of the examples below, we'll be using the following structure for `state` and `ownProps`.
 
-Why these two values? Typically selectors are used to select values from `state` within a `mapStateToProps` function. React-redux provides a `connect` function which supplies `mapStateToProps` with the current `state` and the wrapper component's `ownProps`.
+Why `state` and `ownProps`? Typically selectors are used to select values from `state` within a `mapStateToProps` function. React-redux provides a `connect` function which supplies `mapStateToProps` with the current redux `state` and the wrapper component's `ownProps`.
 
 ```js
 const state = {
@@ -112,17 +108,17 @@ selectFirstOrange(state) // => { id: 2, size: 'medium' }
 
 ### Dependent selectors: `createSelector(...selectors, resultsFunc)`
 
-You can also combine many dependent selectors using a "results function". This is ver similar to how reselect works. You can supply several several selectors and the results of each selector will be fed into a final results function. You can see below that the `resultsFunc` receives an argument for each selector. You can read more about [dependent selectors](/docs/usage/dependent-selectors.md) in the docs.
+You can also combine many dependent selectors using a "results function". This is very similar to how reselect works. You can supply several selectors and the results will be fed into a final results function. You can see below that the `resultsFunc` receives an argument for each selector. You can read more about [dependent selectors](/docs/usage/dependent-selectors.md) in the docs.
 
 Dependent selectors are memoized.
 
 ```js
 import { createSelector } from '@comfy/redux-selectors'
 
-const selectApples = createSelector('department.produce.fruit.apples.length')
+const selectAppleCount = createSelector('department.produce.fruit.apples.length')
 
 const selectTotal = createSelector(
-  selectApples, // selector
+  selectAppleCount, // selector
   'department.produce.fruit.oranges.length', // path selector
   state => state.department.produce.veggies.potatoes.length,
   (apples, oranges, potatoes) => apples + oranges + potatoes // resultsFunc
@@ -133,7 +129,7 @@ selectTotal(state) // => 3
 
 ### Configurable selectors: `withOptions(creator)`
 
-Sometimes you may need to configure your selectors to make them more reusable. A configurable selector is a curried function that accepts configuration on the first call and state on the second. You can read more about [configurable selectors](/docs/usage/configurable-selectors.md) in the docs.
+Sometimes you need to configure your selectors to make them more reusable. A configurable selector is a curried function that accepts configuration on the first call and state on the second. You can read more about [configurable selectors](/docs/usage/configurable-selectors.md) in the docs.
 
 Configurable selectors are memoized.
 
@@ -177,13 +173,13 @@ const selectApplesBySize = withOptions(size => composeSelectors(
   selectApples,
   apples => apples.filter(apple => apple.size === size)
 ))
-const selectApplesByFilter = state => composeSelectors(
+const selectApplesBySizeFilter = state => composeSelectors(
   selectSizeFilter,
   selectApplesBySize,
   selectFilteredApples => selectFilteredApples(state)
 )(state)
 
-selectApplesByFilter(state) // => [{ id: 1, size: 'big' }]
+selectApplesBySizeFilter(state) // => [{ id: 1, size: 'big' }]
 ```
 
 ### Using `mapStateToProps` and `withProps(creator)`
@@ -232,7 +228,7 @@ mapStateToProps(state, ownProps) // => { apple: { id: 1, size: 'big' } }
 
 ### Combining selectors: `combineSelectors(selectorMap)`
 
-You can read more about [using `mapStateToProps`](/docs/usage/with-mapStateToProps.md) in the docs.
+You can read more about [combining selectors for usage with `mapStateToProps`](/docs/usage/with-mapStateToProps.md) in the docs.
 
 ```js
 import { combineSelectors, composeSelectors, createSelector, withProps } from '@comfy/redux-selectors'

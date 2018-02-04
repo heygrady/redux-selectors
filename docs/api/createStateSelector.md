@@ -53,8 +53,8 @@ import { createStateSelector } from '@comfy/redux-selectors'
 const selectTitle = createStateSelector(state => state.book.title)
 const selectPropTitle = createStateSelector((_, props) => props.title)
 
-const selectA = createStateSelector('title')
-const selectB = createStateSelector(selectBookTitle)
+const selectA = state => state.book.title
+const selectB = createStateSelector(selectA)
 const selectWhoops = createStateSelector(undefined)
 
 // ---
@@ -71,13 +71,14 @@ selectWhoops === undefined // => true
 
 ## Mapping a mixed array
 
-Internally, `createStateSelector` is often mapped over an array of selectors. In the example below you can see that a mix of selectors can be quickly normalized by passing the all through `createStateSelector`, ensuring that all paths are converted to selectors.
+Internally, `createStateSelector` is often mapped over an array of selectors. In the example below you can see that a mix of selectors can be quickly normalized by passing them all through `createStateSelector`, ensuring that all paths are converted to selectors.
 
 ```js
 import { createStateSelector } from '@comfy/redux-selectors'
 
 const selectors = [
   'title',
+  ['title'],
   state => state.title,
   (_, ownProps) => ownProps.title
 ].map(createStateSelector)
@@ -87,5 +88,5 @@ const selectors = [
 const state = { title: 'marco' }
 const ownProps = { title: 'polo' }
 
-selectors.map(selector => selector(state)) // => [marco, marco, polo]
+selectors.map(selector => selector(state)) // => [marco, marco, marco, polo]
 ```
