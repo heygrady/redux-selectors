@@ -1,6 +1,6 @@
 {
   "name": "@comfy/redux-selectors",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Redux selectors",
   "main": "lib/redux-selectors.js",
   "module": "es/redux-selectors.js",
@@ -67,11 +67,11 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-config-standard-react": "^5.0.0",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -83,7 +83,6 @@
     "gitbook-plugin-prism": "^2.3.0",
     "glob": "^7.1.1",
     "jest": "^21.2.1",
-    "lodash.get": "^4.4.2",
     "prettier": "1.8.2",
     "redux": "^3.7.2",
     "rimraf": "^2.6.2",
@@ -110,10 +109,14 @@
     ]
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/_book/",
+      "/_fun/"
+    ],
     "testRegex": "(/test/.*\\.spec.js)$"
   },
   "peerDependencies": {
-    "lodash.get": "^4.4.2",
     "redux": "^3.7.2"
   }
 }

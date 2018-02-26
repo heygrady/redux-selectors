@@ -1,4 +1,5 @@
 import withOptions, { filterState } from '../../src/helpers/withOptions'
+import { MAX_KEYS } from '../../src/helpers/trimCache'
 
 describe('redux-selectors', () => {
   describe('withOptions', () => {
@@ -63,7 +64,16 @@ describe('redux-selectors', () => {
       expect(creator).toHaveBeenCalledTimes(2)
       expect(result).toBe('whoops!')
     })
-    it.skip('performance test', () => {
+    it('trims cache after too many options', () => {
+      let n = 0
+      while (n <= MAX_KEYS) {
+        selector({ foo: n })(state, ownProps)
+        n++
+      }
+      selector({ foo: 0 })(state, ownProps)
+      expect(creator).toHaveBeenCalledTimes(514)
+    })
+    it.skip('performance test (will fail)', () => {
       let n = 0
       const randomInt = max => Math.floor(Math.random() * Math.floor(max))
       while (n < 5000) {

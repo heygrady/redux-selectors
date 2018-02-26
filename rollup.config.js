@@ -12,10 +12,10 @@ const config = {
 
 if (env === 'es' || env === 'cjs') {
   config.output = { format: env }
-  config.external = ['symbol-observable', 'lodash.get', 'redux']
+  config.external = ['symbol-observable', 'redux']
   config.plugins.push(
     babel({
-      plugins: ['external-helpers'],
+      plugins: ['external-helpers']
     })
   )
 }
@@ -23,10 +23,9 @@ if (env === 'es' || env === 'cjs') {
 if (env === 'development' || env === 'production') {
   config.output = { format: 'umd' }
   config.name = 'ComfyReduxSelectors'
-  config.external = ['lodash.get', 'redux']
+  config.external = ['redux']
   config.globals = {
-    'lodash.get': '_.get',
-    'redux': 'Redux'
+    redux: 'Redux'
   }
   config.plugins.push(
     nodeResolve({
@@ -34,7 +33,7 @@ if (env === 'development' || env === 'production') {
     }),
     babel({
       exclude: 'node_modules/**',
-      plugins: ['external-helpers'],
+      plugins: ['external-helpers']
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
@@ -44,14 +43,17 @@ if (env === 'development' || env === 'production') {
 
 if (env === 'production') {
   config.plugins.push(
-    uglify({
-      compress: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        warnings: false
-      }
-    }, minify)
+    uglify(
+      {
+        compress: {
+          pure_getters: true,
+          unsafe: true,
+          unsafe_comps: true,
+          warnings: false
+        }
+      },
+      minify
+    )
   )
 }
 

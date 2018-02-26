@@ -14,11 +14,10 @@ Redux-selectors allows you to:
 ## Installation
 
 ```bash
-yarn add @comfy/redux-selectors lodash.get redux
+yarn add @comfy/redux-selectors redux
 ```
 
-- `createSelector` depends on `lodash.get`
-- `composeSelectors` depends on `compose` from redux
+**Note:** `composeSelectors` depends on `compose` from redux
 
 ## Getting started
 
@@ -86,7 +85,7 @@ const ownProps = { id: 1, type: 'apples' }
 
 ### Path selectors: `createSelector(path)`
 
-You can create a selector from a path. Under the hood it uses [`get(state, path)`](https://lodash.com/docs/#get) to read the value. The `get` function allows `path` to be either a string or an array. You can read more about [path selectors](/docs/usage/path-selectors.md) in the docs.
+You can create a selector from a path. Under the hood it uses `get(state, path)` (with the same API as [lodash `get`](https://lodash.com/docs/latest#get)) to read the value. The `get` function allows `path` to be either a string or an array. You can read more about [path selectors](/docs/usage/path-selectors.md) in the docs.
 
 Path selectors are not memoized.
 

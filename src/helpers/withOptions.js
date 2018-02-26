@@ -1,23 +1,18 @@
 import memoizeSelector from '../memoizeSelector'
 
-const MAX_KEYS = 100
+import trimCache, { MAX_KEYS } from './trimCache'
 
 const createOptionsMap = () => {
   const wrapperMap = new Map()
-  const keys = []
-  const trimCache = () => {
-    while (keys.length > MAX_KEYS) {
-      wrapperMap.delete(keys.shift())
-    }
-  }
   return options => {
     const key = JSON.stringify(options)
     let wrapper
     if (!wrapperMap.has(key)) {
       wrapper = {}
       wrapperMap.set(key, {})
-      keys.push(key)
-      trimCache()
+      if (wrapperMap.size > MAX_KEYS) {
+        trimCache(wrapperMap)
+      }
     }
     wrapper = wrapperMap.get(key)
     wrapper.options = options

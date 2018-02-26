@@ -1,4 +1,4 @@
-import get from 'lodash.get'
+import get from './get'
 import memoizeSelector from './memoizeSelector'
 
 export const mapSelectorsToArgs = selectors => args =>

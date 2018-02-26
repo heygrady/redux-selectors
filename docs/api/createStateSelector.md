@@ -21,7 +21,7 @@ selectTitle(state, ownProps) // => marco
 
 ## Using array paths
 
-Because path selectors are created using `lodash.get`, any valid path argument will work. Lodash `get` allows path to be a string or an array. Below you can see an example where the path is specified in array format.
+Because path selectors are created using `get` (which is compliant with [Lodash get](https://lodash.com/docs/latest#get)), any valid path argument will work. Lodash `get` allows path to be a string or an array. Below you can see an example where the path is specified in array format.
 
 ```js
 import { createStateSelector } from '@comfy/redux-selectors'

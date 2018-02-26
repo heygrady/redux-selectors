@@ -1,6 +1,6 @@
 # Path Selectors
 
-The most immediate benefit of using redux-selectors is the ability to quickly create "path selectors". Under the hood, redux-selectors uses [`get`](https://www.npmjs.com/package/lodash.get) from [lodash](https://lodash.com/docs#get). Basically, if you pass a `path`, like `get(state, path)`, it will return that value or return undefined. Importantly, `get` returns `undefined` instead of throwing an error if it can't resolve the path..
+The most immediate benefit of using redux-selectors is the ability to quickly create "path selectors". Under the hood, redux-selectors uses `get` function with the same API as [lodash](https://lodash.com/docs#get). Basically, if you pass a `path`, like `get(state, path)`, it will return that value or return undefined. Importantly, `get` returns `undefined` instead of throwing an error if it can't resolve the path..
 
 If you pass only a single argument to `createSelector`, like `createSelector(path)`, it will return selector. Under the hood, any selector you provide to `createSelector` is wrapped by [`createStateSelector`](/docs/api/createStateSelector.md). This has the effect of transforming paths into functional selectors.
 
@@ -34,7 +34,7 @@ selectWhoops(state) // => 3 (why does this work?)
 
 ## Why use paths instead of pure functions?
 
-A path selector is created using `lodash.get`, which will avoid errors that occur when the state isn't properly initialized.
+A path selector is created using `get`, which will avoid errors that occur when the state isn't properly initialized.
 
 Consider the following example. Notice that `selectApples` returns `undefined` when a key is not found. By contrast, `selectOranges` will attempt to read an undefined key, which throws an error. If you prefer the behavior of throwing on undefined, then you might prefer to use functional selectors over path selectors.
 
