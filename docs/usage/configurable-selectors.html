@@ -1,0 +1,666 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Configurable selectors · Comfy Redux Selectors</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-algolia/plugin-algolia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="with-mapStateToProps.html" />
+    
+    
+    <link rel="prev" href="dependent-selectors.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Usage</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="path-selectors.html">
+            
+                <a href="path-selectors.html">
+            
+                    
+                    Path selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="dependent-selectors.html">
+            
+                <a href="dependent-selectors.html">
+            
+                    
+                    Dependent selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="configurable-selectors.html">
+            
+                <a href="configurable-selectors.html">
+            
+                    
+                    Configurable selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="with-mapStateToProps.html">
+            
+                <a href="with-mapStateToProps.html">
+            
+                    
+                    With mapStateToProps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="composing-selectors.html">
+            
+                <a href="composing-selectors.html">
+            
+                    
+                    Composing selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="comparing-with-reselect.html">
+            
+                <a href="comparing-with-reselect.html">
+            
+                    
+                    Comparing with reselect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">API</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../api/createSelector.html">
+            
+                <a href="../api/createSelector.html">
+            
+                    
+                    createSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../api/withOptions.html">
+            
+                <a href="../api/withOptions.html">
+            
+                    
+                    withOptions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../api/withProps.html">
+            
+                <a href="../api/withProps.html">
+            
+                    
+                    withProps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="../api/withState.html">
+            
+                <a href="../api/withState.html">
+            
+                    
+                    withState
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="../api/combineSelectors.html">
+            
+                <a href="../api/combineSelectors.html">
+            
+                    
+                    combineSelectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="../api/composeSelectors.html">
+            
+                <a href="../api/composeSelectors.html">
+            
+                    
+                    composeSelectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="../api/memoizeSelector.html">
+            
+                <a href="../api/memoizeSelector.html">
+            
+                    
+                    memoizeSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="../api/createStateSelector.html">
+            
+                <a href="../api/createStateSelector.html">
+            
+                    
+                    createStateSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.9" data-path="../api/createPropsSelector.html">
+            
+                <a href="../api/createPropsSelector.html">
+            
+                    
+                    createPropsSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Configurable selectors</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="configurable-selectors">Configurable selectors</h1>
+<p>Sometimes you need to pass some aditional configuration to your selectors. The <a href="../api/withOptions.html"><code>withOptions</code></a> function allows you to create memoized, curried selectors where the <em>first</em> call accepts the configuration arguments, the <em>second</em> call accepts <code>state</code> and returns a value.</p>
+<h3 id="why-configuration-first-state-last">Why configuration first, state last?</h3>
+<p>In order to support composing selectors, it&apos;s important that <code>state</code> be last. Consider examples of using redux&apos;s <code>compose</code> to apply several higher-order-components. For instance, react-redux&apos;s <code>connect</code> function is a higher-order-component. Like many higher-order-components, it accepts configuration on the first call and a <em>component</em> on the second. There are numerous examples on the web, particularly react-router&apos;s <code>withRouter</code>, that show how to compose multiple higher-order-components together. This is possible because, by convention, higher-order-components are &quot;configuration first&quot;.</p>
+<p>Similarly, a configurable selector accepts configuration on the first call and <code>state</code> on the second call.</p>
+<h2 id="basic-example">Basic example</h2>
+<p>Consider this example of filtering a list of objects by size. You can see that <code>selectApplesBySize</code> is a curried function. The first call configures the selector and the second call returns the result.</p>
+<p>This is a prime example of a function that should be memoized. We&apos;ll see below that <code>withOptions</code> makes it easy to memoize this type of selector.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// a configurable selector</span>
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> size <span class="token operator">=</span><span class="token operator">&gt;</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> apples <span class="token operator">=</span> state<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span>apples
+  <span class="token keyword">return</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span><span class="token string">&apos;big&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h2 id="you-might-not-need-it">You might not need it</h2>
+<p>There are some things to consider before resorting creating a configurable selector. First, as the reselect docs point out, if you are hooking your selector up to <code>mapStateToProps</code> you could rely on the <code>selector(state, props)</code> format to return values that are configured by <code>props</code>. Second, if you are configuring a selector using values that exist in the state, you might be able to get by with a <a href="dependent-selectors.html">dependent selector</a>.</p>
+<h3 id="depending-on-ownprops-for-configuration">Depending on <code>ownProps</code> for configuration</h3>
+<p>In order to support the signature of <code>mapStateToProps</code>, selectors accept a second <code>props</code> arguments. This makes it easy to configure your selectors using props that come from react.</p>
+<p>Below you can see an example that uses the <code>ownProps</code> object that react-redux&apos;s <code>connect</code> provides to <code>mapStateToProps</code>. Notice the use of <a href="../api/createPropsSelector.html"><code>createPropsSelector</code></a> to read values from <code>ownProps</code> instead of <code>state</code>. In this case, there is no need for a configurable selector, because the configuration is coming from <code>ownProps</code> directly.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector<span class="token punctuation">,</span> createPropsSelector <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  <span class="token function">createPropsSelector</span><span class="token punctuation">(</span><span class="token string">&apos;size&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span>apples<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> ownProps <span class="token operator">=</span> <span class="token punctuation">{</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> ownProps<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h3 id="depending-on-state-for-configuration">Depending on <code>state</code> for configuration</h3>
+<p>You might be able to supply your arguments directly from <code>state</code>. In this example we&apos;ve added a <code>filter.size</code> to <code>state</code>. Notice how we&apos;re now selecting <code>size</code> from the <code>state</code> instead of <code>ownProps</code>. Again, there is no need for a configurable selector when configuration comes from <code>state</code>.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;filter.size&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span>apples<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  filter<span class="token punctuation">:</span> <span class="token punctuation">{</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h2 id="using-withoptions-for-configuration">Using <code>withOptions</code> for configuration</h2>
+<p>For the cases when you don&apos;t want to rely on <code>ownProps</code> or <code>state</code> to configure your selector, you can use <a href="../api/withOptions.html"><code>withOptions</code></a>. This allows you to pass a &quot;creator function&quot; that returns a selector. In the example below, you can see that the <code>size</code> argument is coming from the first call to the curried selector.</p>
+<p>Notice that <code>selectApplesBySize</code> is memoized at both levels. The effect is that the inner selector is recreated every time <code>size</code> changes.</p>
+<p>Importantly, the creator function is memoized using an internal <code>memoizeCreator</code> function. Unlike <code>memoizeSelector</code>, it memoizes your arguments by <em>value</em>. Meaning, <code>memoizeCreator</code> doesn&apos;t care if the arguments are literally the same object, only that they are the same value. This has a small benefit over relying on <code>ownProps</code>, which might change often while still containing the exact same values.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector<span class="token punctuation">,</span> withOptions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">withOptions</span><span class="token punctuation">(</span>size <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  apples <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span><span class="token string">&apos;big&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h3 id="using-withoptions-and-state-together">Using <code>withOptions</code> and <code>state</code> together</h3>
+<p>Even when you&apos;re using <code>withOptions</code>, you can still keep your configuration in the state. Consider this example where a <code>filter.size</code> has been added to <code>state</code>. Using <code>composeSelectors</code>, we can retrieve the filtered objects with a single call to the selector.</p>
+<p>Notice how <code>selectApplesByFilter</code> below spreads the external args to both the outer <code>composeSelectors</code> and the inner selector returned by <code>selectApplesBySize</code>. This allows you to create a configurable selector that can get its configuration from anywhere, including <code>ownProps</code> (see further below).</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector<span class="token punctuation">,</span> composeSelectors<span class="token punctuation">,</span> withOptions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectSize <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><span class="token string">&apos;filter.size&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">withOptions</span><span class="token punctuation">(</span>size <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  apples <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> selectApplesByFilter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">composeSelectors</span><span class="token punctuation">(</span>
+  selectSize<span class="token punctuation">,</span>
+  selectApplesBySize<span class="token punctuation">,</span>
+  selector <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">selector</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  filter<span class="token punctuation">:</span> <span class="token punctuation">{</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApplesByFilter</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h3 id="using-withoptions-and-ownprops-together">Using <code>withOptions</code> and <code>ownProps</code> together</h3>
+<p>You can also mix a configurable selector with <code>ownProps</code>. In the example below, notice that we&apos;re passing a value from <code>ownProps</code> into our curried selector. By using a configurable selector, you can have tight control over how your selector receives configuration. This also allows you to memoize your selector more efficiently in some cases.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector<span class="token punctuation">,</span> withOptions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">withOptions</span><span class="token punctuation">(</span>size <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  apples <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> ownProps <span class="token operator">=</span> <span class="token punctuation">{</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span>ownProps<span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<h3 id="using-withprops">Using <code>withProps</code></h3>
+<p>You can skip some of the ceremony of <code>withOptions</code> and create a selector that always uses <code>ownProps</code> for configuration. Below you can see that <code>selectApplesBySize</code> is nearly identical to the previous example. However, notice that we&apos;re using <code>withProps</code> instead of <code>withOptions</code>. The big difference is in how the selector is called. See below that the function signature is now <code>selectApplesBySize(state, ownProps)</code>.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector<span class="token punctuation">,</span> withProps<span class="token punctuation">,</span> withState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">const</span> selectApplesBySize <span class="token operator">=</span> <span class="token function">withProps</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span> size <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">withState</span><span class="token punctuation">(</span><span class="token function">createSelector</span><span class="token punctuation">(</span>
+  <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">,</span>
+  apples <span class="token operator">=</span><span class="token operator">&gt;</span> apples<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>apple <span class="token operator">=</span><span class="token operator">&gt;</span> apple<span class="token punctuation">.</span>size <span class="token operator">===</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    apples<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;small&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token string">&apos;medium&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> ownProps <span class="token operator">=</span> <span class="token punctuation">{</span> size<span class="token punctuation">:</span> <span class="token string">&apos;big&apos;</span> <span class="token punctuation">}</span>
+
+<span class="token function">selectApplesBySize</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> ownProps<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; [{ id: 1, size: &apos;big&apos; }]</span>
+</code></pre>
+<p><em>Next:</em></p>
+<ul>
+<li><a href="with-mapStateToProps.html">with <code>mapStateToProps</code></a></li>
+<li><a href="composing-selectors.html">composing selectors</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+    
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+
+    
+    <div class="powered-by-algolia">
+        powered by <a href="https://algolia.com" target="_blank"><img src="../../gitbook/gitbook-plugin-algolia/algolia-logo.jpg" /></a>
+    </div>
+    
+
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="dependent-selectors.html" class="navigation navigation-prev " aria-label="Previous page: Dependent selectors">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="with-mapStateToProps.html" class="navigation navigation-next " aria-label="Next page: With mapStateToProps">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Configurable selectors","level":"2.3","depth":1,"next":{"title":"With mapStateToProps","level":"2.4","depth":1,"path":"docs/usage/with-mapStateToProps.md","ref":"docs/usage/with-mapStateToProps.md","articles":[]},"previous":{"title":"Dependent selectors","level":"2.2","depth":1,"path":"docs/usage/dependent-selectors.md","ref":"docs/usage/dependent-selectors.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","algolia"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/heygrady/redux-selectors/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"algolia":{"freeAccount":"false","index":"comfy-redux-selectors-docs","applicationID":"changeme","publicKey":"changeme"},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/heygrady/redux-selectors/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Comfy Redux Selectors","gitbook":"3.2.2"},"file":{"path":"docs/usage/configurable-selectors.md","mtime":"2018-02-02T22:35:31.019Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-02-26T04:10:22.282Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-algolia/search-algolia.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

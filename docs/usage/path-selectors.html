@@ -1,0 +1,561 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Path selectors · Comfy Redux Selectors</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-algolia/plugin-algolia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="dependent-selectors.html" />
+    
+    
+    <link rel="prev" href="../../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Usage</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="path-selectors.html">
+            
+                <a href="path-selectors.html">
+            
+                    
+                    Path selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="dependent-selectors.html">
+            
+                <a href="dependent-selectors.html">
+            
+                    
+                    Dependent selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="configurable-selectors.html">
+            
+                <a href="configurable-selectors.html">
+            
+                    
+                    Configurable selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="with-mapStateToProps.html">
+            
+                <a href="with-mapStateToProps.html">
+            
+                    
+                    With mapStateToProps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="composing-selectors.html">
+            
+                <a href="composing-selectors.html">
+            
+                    
+                    Composing selectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="comparing-with-reselect.html">
+            
+                <a href="comparing-with-reselect.html">
+            
+                    
+                    Comparing with reselect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">API</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../api/createSelector.html">
+            
+                <a href="../api/createSelector.html">
+            
+                    
+                    createSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../api/withOptions.html">
+            
+                <a href="../api/withOptions.html">
+            
+                    
+                    withOptions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../api/withProps.html">
+            
+                <a href="../api/withProps.html">
+            
+                    
+                    withProps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="../api/withState.html">
+            
+                <a href="../api/withState.html">
+            
+                    
+                    withState
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="../api/combineSelectors.html">
+            
+                <a href="../api/combineSelectors.html">
+            
+                    
+                    combineSelectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="../api/composeSelectors.html">
+            
+                <a href="../api/composeSelectors.html">
+            
+                    
+                    composeSelectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="../api/memoizeSelector.html">
+            
+                <a href="../api/memoizeSelector.html">
+            
+                    
+                    memoizeSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="../api/createStateSelector.html">
+            
+                <a href="../api/createStateSelector.html">
+            
+                    
+                    createStateSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.9" data-path="../api/createPropsSelector.html">
+            
+                <a href="../api/createPropsSelector.html">
+            
+                    
+                    createPropsSelector
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Path selectors</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="path-selectors">Path Selectors</h1>
+<p>The most immediate benefit of using redux-selectors is the ability to quickly create &quot;path selectors&quot;. Under the hood, redux-selectors uses <code>get</code> function with the same API as <a href="https://lodash.com/docs#get" target="_blank">lodash</a>. Basically, if you pass a <code>path</code>, like <code>get(state, path)</code>, it will return that value or return undefined. Importantly, <code>get</code> returns <code>undefined</code> instead of throwing an error if it can&apos;t resolve the path..</p>
+<p>If you pass only a single argument to <code>createSelector</code>, like <code>createSelector(path)</code>, it will return selector. Under the hood, any selector you provide to <code>createSelector</code> is wrapped by <a href="../api/createStateSelector.html"><code>createStateSelector</code></a>. This has the effect of transforming paths into functional selectors.</p>
+<p>In order to support path selectors, redux-selectors commonly passes selectors through <a href="../api/createStateSelector.html"><code>createStateSelector</code></a>, which will convert paths into selector functions (and blindly return all other values). Because of this, you can use paths to create selectors on-the-fly with <code>createSelector</code>, <a href="../api/composeSelectors.html"><code>composeSelectors</code></a> and <a href="../api/combineSelectors.html"><code>combineSelectors</code></a>.</p>
+<p>Below, you can see an example of using <code>createSelector</code> with a path string to select a value from the state.</p>
+<p>Notice that <code>selectApples</code> is a string selector and that <code>selectOranges</code> is a functional selector. Typically, there is no need to wrap a functional selector in <code>createSelector</code>, but there&apos;s no harm in doing it either. Also note that <code>get</code> allows paths to be in array format as well. You can see that <code>selectBananas</code> supplies the path as an array.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector <span class="token punctuation">}</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectApples <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// string path</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectOranges <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span>oranges
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectBananas <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;fruit&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;bananas&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// array path</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectWhoops <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><span class="token string">&apos;fruit&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;bananas&apos;</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span> apples<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> oranges<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> bananas<span class="token punctuation">:</span> <span class="token number">3</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApples</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 1</span>
+<span class="token function">selectOranges</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 2</span>
+<span class="token function">selectBananas</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 3</span>
+<span class="token function">selectWhoops</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 3 (why does this work?)</span>
+</code></pre>
+<p><strong>Note:</strong> There is an overloaded version of <code>createSelector</code> that accepts a list of selectors and a &quot;results function&quot;. In the example above, <code>selectWhoops</code> is accidentally using this format. Technically, <code>selectWhoops</code> is selecting <code>fruit</code> from <code>state</code> and passing the result to a function that reads <code>bananas</code> from the result. Also note that <code>selectWhoops</code> is memoized. This is called a <a href="dependent-selectors.html">&quot;dependent selector&quot;</a> and you can read more about it in the docs.</p>
+<h2 id="why-use-paths-instead-of-pure-functions">Why use paths instead of pure functions?</h2>
+<p>A path selector is created using <code>get</code>, which will avoid errors that occur when the state isn&apos;t properly initialized.</p>
+<p>Consider the following example. Notice that <code>selectApples</code> returns <code>undefined</code> when a key is not found. By contrast, <code>selectOranges</code> will attempt to read an undefined key, which throws an error. If you prefer the behavior of throwing on undefined, then you might prefer to use functional selectors over path selectors.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector <span class="token punctuation">}</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectApples <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span><span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectOranges <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span>oranges
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// whoops! empty state</span>
+
+<span class="token function">selectApples</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; undefined</span>
+<span class="token function">selectOranges</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; throws</span>
+</code></pre>
+<h3 id="passing-a-function-as-a-selector">Passing a function as a selector</h3>
+<p>You can also pass a function to <code>createSelector</code>, although it&apos;s not particularly useful. There&apos;s no harm in doing this either.</p>
+<p>Notice in the example below that <code>selectOranges</code> and <code>selectOrangesToo</code> are the <em>exact same function</em>. Under the hood, the <code>createSelector</code> function simply returns a passed function. You can read more about how <a href="../api/createStateSelector.html"><code>createStateSelector</code></a> works to see why.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createSelector <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token comment" spellcheck="true">// these are equivalent</span>
+<span class="token keyword">const</span> selectOranges <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span>oranges
+<span class="token keyword">const</span> selectOrangesToo <span class="token operator">=</span> <span class="token function">createSelector</span><span class="token punctuation">(</span>selectOranges<span class="token punctuation">)</span>
+
+selectOranges <span class="token operator">===</span> selectOrangesToo <span class="token comment" spellcheck="true">// =&gt; true</span>
+</code></pre>
+<h2 id="doing-it-manually">Doing it manually</h2>
+<p>In terms of creating selectors from paths, <code>createSelector(path)</code> isn&apos;t doing anything particularly special. It&apos;s a convenience function for doing something you could just as easily do yourself.</p>
+<h3 id="with-lodash-get">With lodash get</h3>
+<p>Below you can see an example that doesn&apos;t use redux-selectors at all. This basic format is what is created inside the <a href="../api/createStateSelector.html"><code>createStateSelector</code></a>.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token keyword">get</span> <span class="token keyword">from</span> <span class="token string">&apos;lodash.get&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectApples <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">get</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> <span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span> apples<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> oranges<span class="token punctuation">:</span> <span class="token number">2</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApples</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 1</span>
+</code></pre>
+<h3 id="with-createstateselectorselector">With <code>createStateSelector(selector)</code></h3>
+<p>As mentioned above, when you pass only one argument to <code>createSelector</code> it acts as a thin wrapper around <code>createStateSelector</code>. In turn, <code>createStateSelector</code> is just a thin wrapper around <code>lodash.get</code>. In the example below, you can see that, with a single argument, <code>createStateSelector</code> doesn&apos;t behave any different than <code>createSelector</code>.</p>
+<p>Notice that <code>selectOranges</code> is a function selector. There is really no benefit or detriment to wrapping a selector function in <code>createStateSelector</code>. Many of the functions in redux-selectors pass selectors through <code>createStateSelector</code> in order to transform path strings into functional selectors.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createStateSelector <span class="token punctuation">}</span> <span class="token string">&apos;@comfy/redux-selectors&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectApples <span class="token operator">=</span> <span class="token function">createStateSelector</span><span class="token punctuation">(</span><span class="token string">&apos;fruit.apples&apos;</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> selectOranges <span class="token operator">=</span> <span class="token function">createStateSelector</span><span class="token punctuation">(</span>state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span>oranges<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// ---</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  fruit<span class="token punctuation">:</span> <span class="token punctuation">{</span> apples<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> oranges<span class="token punctuation">:</span> <span class="token number">2</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">selectApples</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 1</span>
+<span class="token function">selectOranges</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// =&gt; 2</span>
+</code></pre>
+<p><em>Next:</em> <a href="dependent-selectors.html">dependent selectors</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+    
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+
+    
+    <div class="powered-by-algolia">
+        powered by <a href="https://algolia.com" target="_blank"><img src="../../gitbook/gitbook-plugin-algolia/algolia-logo.jpg" /></a>
+    </div>
+    
+
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../../" class="navigation navigation-prev " aria-label="Previous page: Read Me">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="dependent-selectors.html" class="navigation navigation-next " aria-label="Next page: Dependent selectors">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Path selectors","level":"2.1","depth":1,"next":{"title":"Dependent selectors","level":"2.2","depth":1,"path":"docs/usage/dependent-selectors.md","ref":"docs/usage/dependent-selectors.md","articles":[]},"previous":{"title":"Read Me","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","algolia"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/heygrady/redux-selectors/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"algolia":{"freeAccount":"false","index":"comfy-redux-selectors-docs","applicationID":"changeme","publicKey":"changeme"},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/heygrady/redux-selectors/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Comfy Redux Selectors","gitbook":"3.2.2"},"file":{"path":"docs/usage/path-selectors.md","mtime":"2018-02-26T03:45:46.262Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-02-26T04:10:22.282Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-algolia/search-algolia.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
