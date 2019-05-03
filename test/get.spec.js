@@ -9,8 +9,8 @@ describe('redux-selectors', () => {
       a: 'a',
       b: {
         c: 'c',
-        d: ['d']
-      }
+        d: ['d'],
+      },
     }
   })
   describe('get', () => {
@@ -52,15 +52,15 @@ describe('redux-selectors', () => {
     })
     it('returns undefined when encountering null', () => {
       const result = get(obj, '.b.c')
-      expect(result).toBe(undefined)
+      expect(result).toBeUndefined()
     })
     it('returns undefined when encountering undefined', () => {
       const result = get(obj, '.c.c')
-      expect(result).toBe(undefined)
+      expect(result).toBeUndefined()
     })
     it('returns undefined when object is null', () => {
       const result = get(null, '.c.c')
-      expect(result).toBe(undefined)
+      expect(result).toBeUndefined()
     })
     it('trims cache after too many paths', () => {
       let i = 0

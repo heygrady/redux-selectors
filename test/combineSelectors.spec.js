@@ -6,18 +6,18 @@ describe('redux-selectors', () => {
   beforeEach(() => {
     state = {
       forkOne: {
-        one: 1
+        one: 1,
       },
       forkTwo: {
-        two: 2
-      }
+        two: 2,
+      },
     }
   })
   describe('combineSelectors', () => {
     it('returns an object', () => {
       const selector = combineSelectors({
         one: createSelector('forkOne.one'),
-        two: createSelector('forkTwo.two')
+        two: createSelector('forkTwo.two'),
       })
       const result = selector(state)
       expect(result).toEqual({ one: 1, two: 2 })
@@ -26,7 +26,7 @@ describe('redux-selectors', () => {
     it('creates selectors', () => {
       const selector = combineSelectors({
         one: 'forkOne.one',
-        two: state => state.forkTwo.two
+        two: (state) => state.forkTwo.two,
       })
       const result = selector(state)
       expect(result).toEqual({ one: 1, two: 2 })

@@ -54,13 +54,13 @@ describe('redux-selectors', () => {
     let mapStateToProps
     beforeEach(() => {
       state = {
-        foo: 'bar'
+        foo: 'bar',
       }
       ownProps = { id: 1 }
-      mapStateToProps = withProps(props =>
+      mapStateToProps = withProps((props) =>
         combineSelectors({
-          item: state => state.foo,
-          id: state => props.id
+          item: (state) => state.foo,
+          id: (state) => props.id,
         })
       )
     })
@@ -73,12 +73,12 @@ describe('redux-selectors', () => {
       let makeSelector
       beforeEach(() => {
         state = {
-          foo: 1
+          foo: 1,
         }
         ownProps = { plus: 10, minus: 2, times: 3 }
         makeSelector = (...propSelectors) =>
           withProps(
-            (plus = 0, minus = 0, times = 1) => state =>
+            (plus = 0, minus = 0, times = 1) => (state) =>
               (state.foo + plus - minus) * times,
             ...propSelectors
           )

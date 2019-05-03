@@ -9,7 +9,7 @@ describe('redux-selectors', () => {
     state = {
       foo: 'bar',
       baz: true,
-      other: false
+      other: false,
     }
     ownProps = { bar: 'whoops!' }
     selector = (state, ownProps = {}) => ownProps.bar || state.foo

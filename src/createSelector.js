@@ -1,24 +1,25 @@
 import get from './get'
+import memoizeResultsFunc from './memoizeResultsFunc'
 import memoizeSelector from './memoizeSelector'
 
-export const mapSelectorsToArgs = selectors => args =>
-  selectors.map(selector => selector.apply(null, args))
+export const mapSelectorsToArgs = (selectors) => (args) =>
+  selectors.map((selector) => selector.apply(null, args))
 
-export const createStateSelector = selector => {
+export const createStateSelector = (selector) => {
   if (typeof selector === 'string' || Array.isArray(selector)) {
-    return state => get(state, selector)
+    return (state) => get(state, selector)
   }
   return selector
 }
 
-export const createPropsSelector = selector => {
+export const createPropsSelector = (selector) => {
   const propSelector = createStateSelector(selector)
   return (_, props) => propSelector(props)
 }
 
-const createDependentSelector = selectors => {
+export const createDependentSelector = (selectors) => {
   selectors = selectors.map(createStateSelector)
-  const resultsFunc = selectors[selectors.length - 1]
+  const resultsFunc = memoizeResultsFunc(selectors[selectors.length - 1])
   selectors = selectors.slice(0, -1)
   const mapArgs = mapSelectorsToArgs(selectors)
   return memoizeSelector((...selectorArgs) => {

@@ -1,8 +1,9 @@
 {
   "name": "@comfy/redux-selectors",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Redux selectors",
   "main": "lib/redux-selectors.js",
+  "unpkg": "dist/redux-selectors.js",
   "module": "es/redux-selectors.js",
   "files": [
     "dist",
@@ -12,26 +13,18 @@
   ],
   "scripts": {
     "clean": "rimraf lib dist es coverage",
-    "format": "prettier --write '{src,test}/**/*.js'",
-    "format:check": "prettier --list-different '{src,test}/**/*.js'",
-    "lint": "eslint src test build",
-    "pretest": "npm run build:commonjs",
-    "test": "cross-env BABEL_ENV=commonjs jest",
-    "test:watch": "npm test -- --watch",
-    "test:cov": "npm test -- --coverage",
-    "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/redux-selectors.js",
-    "build:es": "cross-env BABEL_ENV=es NODE_ENV=es rollup -c -o es/redux-selectors.js",
-    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -o dist/redux-selectors.js",
-    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -o dist/redux-selectors.min.js",
-    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
-    "prepare": "npm run clean && npm run format:check && npm run lint && npm test && npm run build",
-    "examples:lint": "eslint examples",
-    "examples:test": "cross-env CI=true babel-node examples/testAll.js",
-    "docs:clean": "rimraf _book",
-    "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:prepare && gitbook build -g heygrady/redux-selectors",
-    "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:heygrady/redux-selectors gh-pages --force"
+    "dev": "yarn build:commonjs --watch",
+    "build:commonjs": "cross-env MODULES_ENV=commonjs babel src --out-dir lib",
+    "build:esmodules": "cross-env MODULES_ENV=esmodules babel src --out-dir es",
+    "build:umd": "rollup -c",
+    "build": "yarn clean && yarn run build:commonjs && yarn run build:esmodules && yarn run build:umd",
+    "lint": "eslint src test",
+    "format": "prettier --write \"{src,test}/**/*.{js,jsx,ts,tsx}\" babel.config.js rollup.config.js .eslintrc.json README.md && yarn lint --fix || true",
+    "test": "jest",
+    "coverage": "yarn test --coverage && npx http-server ./coverage/lcov-report -p4001 -c-1",
+    "postversion": "npm publish --access public",
+    "postpublish": "git push origin --all && git push origin --tags",
+    "prepare": "yarn build"
   },
   "repository": {
     "type": "git",
@@ -50,49 +43,50 @@
   },
   "homepage": "https://heygrady.github.io/redux-selectors/",
   "dependencies": {
-    "loose-envify": "^1.1.0",
-    "symbol-observable": "^1.0.3"
+    "shallowequal": "^1.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.2.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "cross-env": "^5.1.0",
-    "eslint": "^4.9.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-config-react-app": "^2.0.1",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-react": "^7.4.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "gitbook-cli": "^2.3.2",
-    "gitbook-plugin-algolia": "^1.0.7",
-    "gitbook-plugin-anchorjs": "^1.1.1",
-    "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-prism": "^2.3.0",
-    "glob": "^7.1.1",
-    "jest": "^21.2.1",
-    "prettier": "1.8.2",
-    "redux": "^3.7.2",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.51.8",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^2.0.1",
-    "rxjs": "^5.5.0",
-    "uglify-es": "^3.3.8"
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@zumper/babel-preset-react-app": "^8.0.0-zumper.9",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.7.1",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "cross-env": "^5.2.0",
+    "cross-fetch": "^3.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-config-react-app": "^4.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-import-resolver-babel-module": "^5.1.0",
+    "eslint-plugin-flowtype": "^3.7.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^2.2.0",
+    "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.upperfirst": "^4.3.1",
+    "prettier": "^1.17.0",
+    "redux": "^4.0.1",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^4.0.4"
+  },
+  "peerDependencies": {
+    "redux": "^4.0.0"
   },
   "npmName": "@comfy/redux-selectors",
   "npmFileMap": [
@@ -103,20 +97,47 @@
       ]
     }
   ],
-  "browserify": {
-    "transform": [
-      "loose-envify"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/dist",
+      "<rootDir>/es",
+      "<rootDir>/lib",
+      "<rootDir>/node_modules"
+    ],
+    "resolver": "jest-pnp-resolver",
+    "testMatch": [
+      "<rootDir>/test/**/*.spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist",
+      "<rootDir>/es",
+      "<rootDir>/lib",
+      "<rootDir>/node_modules"
+    ],
+    "testURL": "https://localhost"
+  },
+  "sideEffects": false,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{html,md,mjs,js,jsx}": [
+      "prettier --write",
+      "git add"
     ]
   },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/_book/",
-      "/_fun/"
-    ],
-    "testRegex": "(/test/.*\\.spec.js)$"
-  },
-  "peerDependencies": {
-    "redux": "^3.7.2"
-  }
+  "browserslist": [
+    ">0.2%",
+    "Chrome 41",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

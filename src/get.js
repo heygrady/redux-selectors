@@ -1,8 +1,8 @@
 import trimCache, { MAX_KEYS } from './helpers/trimCache'
 
-const memoizeString = func => {
+const memoizeString = (func) => {
   const map = new Map()
-  return string => {
+  return (string) => {
     if (map.has(string)) {
       return map.get(string)
     } else {
@@ -31,7 +31,7 @@ const reEscapeChar = /\\(\\)?/g
 const reLeadingDot = /^\./
 const rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g
 
-const stringToPath = memoizeString(string => {
+const stringToPath = memoizeString((string) => {
   const result = []
   if (reLeadingDot.test(string)) {
     result.push('')

@@ -4,7 +4,7 @@ import trimCache, { MAX_KEYS } from './trimCache'
 
 const createOptionsMap = () => {
   const wrapperMap = new Map()
-  return options => {
+  return (options) => {
     const key = JSON.stringify(options)
     let wrapper
     if (!wrapperMap.has(key)) {
@@ -20,7 +20,7 @@ const createOptionsMap = () => {
   }
 }
 
-const defaultArgsFilter = args => args
+const defaultArgsFilter = (args) => args
 export const filterState = ([state]) => [state]
 
 const withOptions = (creator, argsFilter = defaultArgsFilter) => {

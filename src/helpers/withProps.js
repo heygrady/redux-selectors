@@ -1,7 +1,7 @@
 import { createStateSelector } from '../createSelector'
 import withOptions, { filterState } from './withOptions'
 
-export const mapSelectorsToProps = selectors => props =>
+export const mapSelectorsToProps = (selectors) => (props) =>
   selectors.map((selector, i) => {
     const arg = props[i] !== undefined ? props[i] : props[0]
     return selector !== undefined ? selector(arg) : undefined

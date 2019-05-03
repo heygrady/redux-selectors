@@ -7,9 +7,9 @@ describe('redux-selectors', () => {
       forkOne: {
         forkTwo: {
           one: 1,
-          two: 2
-        }
-      }
+          two: 2,
+        },
+      },
     }
   })
 
@@ -23,7 +23,7 @@ describe('redux-selectors', () => {
     it('creates selectors', () => {
       const selector = composeSelectors(
         'forkOne',
-        state => state.forkTwo,
+        (state) => state.forkTwo,
         'one'
       )
       const result = selector(state)
